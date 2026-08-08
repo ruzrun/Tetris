@@ -643,341 +643,446 @@ body {
 
 
 /* =====================================================
-   MOBILE
+MOBILE
 ===================================================== */
 
 @media (max-width: 700px) {
 
-    body {
-        overflow-x: hidden;
-        overflow-y: auto;
+html,
+body {
 
-        display: block;
-    }
+    width: 100%;
 
+    min-width: 0;
 
-    /* ---------------------------------------------
-       PAGE
-    --------------------------------------------- */
+    overflow-x: hidden;
+    overflow-y: auto;
 
-    .game-wrapper {
-        width: 100%;
+    touch-action: manipulation;
 
-        min-height: auto;
-
-        padding:
-            65px
-            12px
-            30px;
-
-        display: block;
-    }
-
-
-    /* ---------------------------------------------
-       GAME
-    --------------------------------------------- */
-
-    .game-container {
-        width: 100%;
-
-        display: flex;
-
-        flex-direction: column;
-
-        align-items: center;
-
-        gap: 18px;
-    }
-
-
-    /* ---------------------------------------------
-       BOARD SIZE
-       
-       This is the important fix.
-       
-       The board now shrinks based on the
-       phone's available screen height.
-    --------------------------------------------- */
-
-    .board-container {
-        width: auto;
-
-        padding: 6px;
-
-        border-radius: 12px;
-
-        /*
-           Never allow the board to become
-           taller than the phone screen.
-        */
-
-        max-height:
-            calc(100svh - 120px);
-
-        max-width:
-            calc(100vw - 24px);
-    }
-
-
-    #gameCanvas {
-
-        /*
-           Original canvas is 300 × 600.
-
-           On mobile we calculate its height
-           first, then keep the 1:2 ratio.
-        */
-
-        height:
-            min(
-                560px,
-                calc(100svh - 140px)
-            );
-
-        width: auto;
-
-        aspect-ratio: 1 / 2;
-
-        max-width:
-            calc(100vw - 24px);
-
-        border-radius: 6px;
-    }
-
-
-    /* ---------------------------------------------
-       SIDE PANEL
-    --------------------------------------------- */
-
-    .side-panel {
-
-        width: min(100%, 360px);
-
-        display: grid;
-
-        grid-template-columns: 1fr 1fr;
-
-        gap: 10px;
-
-        align-items: stretch;
-    }
-
-
-    /* ---------------------------------------------
-       LOGO
-    --------------------------------------------- */
-
-    .logo {
-
-        grid-column:
-            1 / -1;
-
-        font-size: 30px;
-
-        margin-bottom: 2px;
-    }
-
-
-    /* ---------------------------------------------
-       CARDS
-    --------------------------------------------- */
-
-    .info-card {
-
-        padding: 14px;
-
-        min-height: 105px;
-
-        display: flex;
-
-        flex-direction: column;
-
-        justify-content: center;
-    }
-
-
-    .info-title {
-        font-size: 11px;
-    }
-
-
-    .info-value {
-        font-size: 28px;
-    }
-
-
-    /* ---------------------------------------------
-       HIDE NEXT ON MOBILE
-    --------------------------------------------- */
-
-    .next-card {
-        display: none;
-    }
-
-
-    /* ---------------------------------------------
-       PAUSE
-    --------------------------------------------- */
-
-    .pause-btn {
-        width: 100%;
-    }
-
-
-    /* ---------------------------------------------
-       RESTART
-    --------------------------------------------- */
-
-    .restart-btn {
-        width: 100%;
-    }
-
-
-    /* ---------------------------------------------
-       MOBILE CONTROLS
-    --------------------------------------------- */
-
-    .mobile-controls {
-
-        display: block;
-
-        grid-column:
-            1 / -1;
-
-        width: 100%;
-
-        margin-top: 5px;
-
-        padding-bottom: 10px;
-    }
-
-
-    .mobile-row {
-
-        gap: 10px;
-
-        margin-top: 10px;
-    }
-
-
-    .control-btn {
-
-        width: 58px;
-
-        height: 48px;
-
-        font-size: 22px;
-
-        border-radius: 14px;
-    }
-
-
-    /* ---------------------------------------------
-       BACK BUTTON
-    --------------------------------------------- */
-
-    .back-arcade-fixed {
-
-        top: 10px;
-
-        left: 10px;
-
-        padding:
-            9px 13px;
-
-        font-size: 12px;
-    }
-
-
-    /* ---------------------------------------------
-       OVERLAY
-    --------------------------------------------- */
-
-    .overlay {
-
-        inset: 6px;
-
-        border-radius: 6px;
-    }
-
-
-    .overlay-box {
-
-        width: 84%;
-
-        padding: 20px;
-
-        border-radius: 20px;
-    }
-
-
-    .overlay-title {
-
-        font-size: 42px;
-    }
-
-
-    .overlay-subtitle {
-
-        font-size: 13px;
-
-        margin-bottom: 20px;
-    }
-
-
-    .overlay-button {
-
-        padding: 12px;
-    }
+    -webkit-text-size-adjust: 100%;
 
 }
 
 
+body {
+
+    display: block;
+
+}
+
+
+/* =============================================
+   PAGE
+============================================= */
+
+.game-wrapper {
+
+    width: 100%;
+
+    min-height: auto;
+
+    padding:
+        calc(58px + env(safe-area-inset-top))
+        8px
+        25px;
+
+    display: block;
+
+}
+
+
+/* =============================================
+   GAME CONTAINER
+============================================= */
+
+.game-container {
+
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 14px;
+
+}
+
+
+/* =============================================
+   TETRIS BOARD CONTAINER
+============================================= */
+
+.board-container {
+
+    position: relative;
+
+    width: min(
+        calc(100vw - 16px),
+        360px
+    );
+
+    max-width: calc(100vw - 16px);
+
+    height: auto;
+
+    padding: 5px;
+
+    margin: 0 auto;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+}
+
+
+/* =============================================
+   TETRIS CANVAS
+
+   IMPORTANT:
+   Keep the 1 : 2 ratio.
+============================================= */
+
+#gameCanvas {
+
+    display: block;
+
+    width: 100%;
+
+    height: auto;
+
+    aspect-ratio: 1 / 2;
+
+    max-width: 100%;
+
+    border-radius: 6px;
+
+}
+
+
+/* =============================================
+   SIDE PANEL
+============================================= */
+
+.side-panel {
+
+    width: min(
+        100%,
+        360px
+    );
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 9px;
+
+    align-items: stretch;
+
+}
+
+
+/* =============================================
+   LOGO
+============================================= */
+
+.logo {
+
+    grid-column: 1 / -1;
+
+    font-size: 30px;
+
+    line-height: 1.1;
+
+    margin-bottom: 2px;
+
+}
+
+
+/* =============================================
+   SCORE / LINES / LEVEL
+============================================= */
+
+.info-card {
+
+    min-height: 88px;
+
+    padding: 12px 8px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+
+.info-title {
+
+    font-size: 10px;
+
+    margin-bottom: 2px;
+
+}
+
+
+.info-value {
+
+    font-size: 25px;
+
+}
+
+
+/* =============================================
+   NEXT PIECE
+
+   Hide on phone to save space.
+============================================= */
+
+.next-card {
+
+    display: none;
+
+}
+
+
+/* =============================================
+   BUTTONS
+============================================= */
+
+.pause-btn,
+.restart-btn {
+
+    width: 100%;
+
+    min-height: 45px;
+
+}
+
+
+/* =============================================
+   MOBILE CONTROLS
+============================================= */
+
+.mobile-controls {
+
+    display: block;
+
+    grid-column: 1 / -1;
+
+    width: 100%;
+
+    margin-top: 2px;
+
+    padding-bottom: 5px;
+
+}
+
+
+.mobile-row {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    margin-top: 8px;
+
+}
+
+
+.control-btn {
+
+    width: 56px;
+
+    height: 46px;
+
+    border: none;
+
+    border-radius: 13px;
+
+    font-size: 21px;
+
+    touch-action: manipulation;
+
+    -webkit-tap-highlight-color: transparent;
+
+}
+
+
+.control-btn:active {
+
+    transform: scale(0.93);
+
+}
+
+
+/* =============================================
+   BACK BUTTON
+============================================= */
+
+.back-arcade-fixed {
+
+    position: fixed;
+
+    top:
+        calc(
+            8px +
+            env(safe-area-inset-top)
+        );
+
+    left: 8px;
+
+    z-index: 99999;
+
+    padding: 8px 12px;
+
+    font-size: 12px;
+
+    white-space: nowrap;
+
+    touch-action: manipulation;
+
+    -webkit-tap-highlight-color: transparent;
+
+}
+
+
+/* =============================================
+   OVERLAY
+============================================= */
+
+.overlay {
+
+    inset: 5px;
+
+    border-radius: 6px;
+
+}
+
+
+.overlay-box {
+
+    width: 84%;
+
+    max-width: 280px;
+
+    padding: 19px;
+
+    border-radius: 19px;
+
+}
+
+
+.overlay-title {
+
+    font-size: 40px;
+
+}
+
+
+.overlay-subtitle {
+
+    font-size: 12px;
+
+    margin-bottom: 18px;
+
+}
+
+
+.overlay-button {
+
+    padding: 11px;
+
+    font-size: 13px;
+
+}
+
+}
+
 /* =====================================================
-   VERY SMALL PHONES
+VERY SMALL PHONES
 ===================================================== */
 
 @media (max-width: 380px) {
 
-    .game-wrapper {
+.game-wrapper {
 
-        padding-left: 8px;
-        padding-right: 8px;
-    }
+    padding-left: 6px;
 
+    padding-right: 6px;
 
-    .board-container {
-
-        max-width:
-            calc(100vw - 16px);
-    }
+}
 
 
-    #gameCanvas {
+.board-container {
 
-        height:
-            min(
-                500px,
-                calc(100svh - 150px)
-            );
+    width:
+        calc(100vw - 12px);
 
-        max-width:
-            calc(100vw - 16px);
-    }
+    max-width:
+        calc(100vw - 12px);
 
+    padding: 4px;
 
-    .side-panel {
-
-        width: 100%;
-    }
+}
 
 
-    .control-btn {
+#gameCanvas {
 
-        width: 52px;
+    width: 100%;
 
-        height: 44px;
-    }
+    height: auto;
+
+    aspect-ratio: 1 / 2;
+
+}
+
+
+.side-panel {
+
+    width: 100%;
+
+}
+
+
+.info-card {
+
+    min-height: 82px;
+
+}
+
+
+.info-value {
+
+    font-size: 23px;
+
+}
+
+
+.control-btn {
+
+    width: 52px;
+
+    height: 44px;
+
+}
+
+
+.back-arcade-fixed {
+
+    padding: 7px 10px;
+
+    font-size: 11px;
+
+}
 
 }
