@@ -1,6 +1,5 @@
-
 /* =====================================================
-   CANVAS
+CANVAS
 ===================================================== */
 
 const canvas = document.getElementById("gameCanvas");
@@ -13,80 +12,86 @@ const COLS = 10;
 const ROWS = 20;
 const BLOCK = 30;
 
+/* =====================================================
+AUDIO
+===================================================== */
+
+const bgMusic = document.getElementById("bgMusic");
+const moveSound = document.getElementById("moveSound");
+const gameOverSound = document.getElementById("gameOverSound");
 
 /* =====================================================
-   TETRIS PIECES
+TETRIS PIECES
 ===================================================== */
 
 const PIECES = [
 
-    {
-        name: "I",
-        color: "#5bc0eb",
-        shape: [
-            [1, 1, 1, 1]
-        ]
-    },
+{
+    name: "I",
+    color: "#5bc0eb",
+    shape: [
+        [1, 1, 1, 1]
+    ]
+},
 
-    {
-        name: "O",
-        color: "#f7d154",
-        shape: [
-            [1, 1],
-            [1, 1]
-        ]
-    },
+{
+    name: "O",
+    color: "#f7d154",
+    shape: [
+        [1, 1],
+        [1, 1]
+    ]
+},
 
-    {
-        name: "T",
-        color: "#b07cff",
-        shape: [
-            [0, 1, 0],
-            [1, 1, 1]
-        ]
-    },
+{
+    name: "T",
+    color: "#b07cff",
+    shape: [
+        [0, 1, 0],
+        [1, 1, 1]
+    ]
+},
 
-    {
-        name: "S",
-        color: "#6edb8c",
-        shape: [
-            [0, 1, 1],
-            [1, 1, 0]
-        ]
-    },
+{
+    name: "S",
+    color: "#6edb8c",
+    shape: [
+        [0, 1, 1],
+        [1, 1, 0]
+    ]
+},
 
-    {
-        name: "Z",
-        color: "#ef6b73",
-        shape: [
-            [1, 1, 0],
-            [0, 1, 1]
-        ]
-    },
+{
+    name: "Z",
+    color: "#ef6b73",
+    shape: [
+        [1, 1, 0],
+        [0, 1, 1]
+    ]
+},
 
-    {
-        name: "J",
-        color: "#6f8ff5",
-        shape: [
-            [1, 0, 0],
-            [1, 1, 1]
-        ]
-    },
+{
+    name: "J",
+    color: "#6f8ff5",
+    shape: [
+        [1, 0, 0],
+        [1, 1, 1]
+    ]
+},
 
-    {
-        name: "L",
-        color: "#f39a5a",
-        shape: [
-            [0, 0, 1],
-            [1, 1, 1]
-        ]
-    }
+{
+    name: "L",
+    color: "#f39a5a",
+    shape: [
+        [0, 0, 1],
+        [1, 1, 1]
+    ]
+}
 
 ];
 
-
 /* =====================================================
-   GAME STATE
+GAME STATE
 ===================================================== */
 
 let board = [];
@@ -107,318 +112,437 @@ let animationID = null;
 let gameRunning = false;
 let paused = false;
 
+/* =====================================================
+AUDIO HELPERS
+===================================================== */
+
+function playSound(sound) {
+
+if (!sound) {
+    return;
+}
+
+sound.currentTime = 0;
+
+sound.play().catch(() => {
+    // Browser may block audio until user interaction.
+});
+
+}
+
+function startMusic() {
+
+if (!bgMusic) {
+    return;
+}
+
+bgMusic.volume = 0.35;
+
+bgMusic.play().catch(() => {
+    // Music will start after the next user interaction.
+});
+
+}
+
+function pauseMusic() {
+
+if (!bgMusic) {
+    return;
+}
+
+bgMusic.pause();
+
+}
+
+function stopMusic() {
+
+if (!bgMusic) {
+    return;
+}
+
+bgMusic.pause();
+
+bgMusic.currentTime = 0;
+
+}
 
 /* =====================================================
-   CREATE BOARD
+CREATE BOARD
 ===================================================== */
 
 function createBoard() {
 
-    return Array.from(
-        { length: ROWS },
-        () => Array(COLS).fill(null)
-    );
+return Array.from(
+    { length: ROWS },
+    () => Array(COLS).fill(null)
+);
 
 }
 
-
 /* =====================================================
-   RANDOM PIECE
+RANDOM PIECE
 ===================================================== */
 
 function randomPiece() {
 
-    const template =
-        PIECES[
-            Math.floor(
-                Math.random() * PIECES.length
-            )
-        ];
+const template =
+    PIECES[
+        Math.floor(
+            Math.random() * PIECES.length
+        )
+    ];
 
 
-    return {
-        name: template.name,
+return {
 
-        color: template.color,
+    name: template.name,
 
-        shape: template.shape.map(
-            row => [...row]
-        ),
+    color: template.color,
 
-        x: 0,
-        y: 0
-    };
+    shape: template.shape.map(
+        row => [...row]
+    ),
+
+    x: 0,
+
+    y: 0
+
+};
 
 }
 
-
 /* =====================================================
-   SPAWN PIECE
+SPAWN PIECE
 ===================================================== */
 
 function spawnPiece() {
 
-    currentPiece =
-        nextPiece || randomPiece();
+currentPiece =
+    nextPiece || randomPiece();
 
-    nextPiece =
-        randomPiece();
-
-
-    currentPiece.y = 0;
+nextPiece =
+    randomPiece();
 
 
-    currentPiece.x =
-        Math.floor(
-            (
-                COLS -
-                currentPiece.shape[0].length
-            ) / 2
-        );
+currentPiece.y = 0;
 
 
-    drawNext();
+currentPiece.x =
+    Math.floor(
+        (
+            COLS -
+            currentPiece.shape[0].length
+        ) / 2
+    );
 
 
-    if (collision()) {
-        gameOver();
-    }
+drawNext();
+
+
+if (collision()) {
+
+    gameOver();
 
 }
 
+}
 
 /* =====================================================
-   COLLISION
+COLLISION
 ===================================================== */
 
 function collision() {
 
+for (
+    let y = 0;
+    y < currentPiece.shape.length;
+    y++
+) {
+
     for (
-        let y = 0;
-        y < currentPiece.shape.length;
-        y++
+        let x = 0;
+        x < currentPiece.shape[y].length;
+        x++
     ) {
 
-        for (
-            let x = 0;
-            x < currentPiece.shape[y].length;
-            x++
+        if (!currentPiece.shape[y][x]) {
+            continue;
+        }
+
+
+        const boardX =
+            currentPiece.x + x;
+
+        const boardY =
+            currentPiece.y + y;
+
+
+        if (
+            boardX < 0 ||
+            boardX >= COLS ||
+            boardY >= ROWS
         ) {
 
-            if (!currentPiece.shape[y][x]) {
-                continue;
-            }
+            return true;
+
+        }
 
 
-            const boardX =
-                currentPiece.x + x;
+        if (
+            boardY >= 0 &&
+            board[boardY][boardX]
+        ) {
 
-            const boardY =
-                currentPiece.y + y;
-
-
-            if (
-                boardX < 0 ||
-                boardX >= COLS ||
-                boardY >= ROWS
-            ) {
-                return true;
-            }
-
-
-            if (
-                boardY >= 0 &&
-                board[boardY][boardX]
-            ) {
-                return true;
-            }
+            return true;
 
         }
 
     }
 
-    return false;
+}
+
+return false;
 
 }
 
-
 /* =====================================================
-   MERGE PIECE
+MERGE PIECE
 ===================================================== */
 
 function mergePiece() {
 
-    currentPiece.shape.forEach(
-        (row, y) => {
+currentPiece.shape.forEach(
+    (row, y) => {
 
-            row.forEach(
-                (value, x) => {
+        row.forEach(
+            (value, x) => {
 
-                    if (value) {
+                if (value) {
 
-                        board[
-                            currentPiece.y + y
-                        ][
-                            currentPiece.x + x
-                        ] = currentPiece.color;
-
-                    }
+                    board[
+                        currentPiece.y + y
+                    ][
+                        currentPiece.x + x
+                    ] =
+                        currentPiece.color;
 
                 }
-            );
 
-        }
-    );
+            }
+        );
+
+    }
+);
 
 }
 
-
 /* =====================================================
-   CLEAR LINES
+CLEAR LINES
 ===================================================== */
 
 function clearLines() {
 
-    let cleared = 0;
+let cleared = 0;
 
 
-    for (
-        let y = ROWS - 1;
-        y >= 0;
-        y--
+for (
+    let y = ROWS - 1;
+    y >= 0;
+    y--
+) {
+
+    if (
+        board[y].every(
+            cell => cell !== null
+        )
     ) {
 
-        if (
-            board[y].every(
-                cell => cell !== null
-            )
-        ) {
+        board.splice(y, 1);
 
-            board.splice(y, 1);
+        board.unshift(
+            Array(COLS).fill(null)
+        );
 
-            board.unshift(
-                Array(COLS).fill(null)
-            );
+        cleared++;
 
-            cleared++;
-
-            y++;
-
-        }
-
-    }
-
-
-    if (cleared > 0) {
-
-        const points = [
-            0,
-            100,
-            300,
-            500,
-            800
-        ];
-
-
-        score +=
-            points[cleared] * level;
-
-
-        lines += cleared;
-
-
-        level =
-            Math.floor(lines / 10) + 1;
-
-
-        dropInterval =
-            Math.max(
-                100,
-                800 -
-                (level - 1) * 65
-            );
-
-
-        updateUI();
+        y++;
 
     }
 
 }
 
 
+if (cleared > 0) {
+
+    const points = [
+        0,
+        100,
+        300,
+        500,
+        800
+    ];
+
+
+    score +=
+        points[cleared] * level;
+
+
+    lines += cleared;
+
+
+    level =
+        Math.floor(lines / 10) + 1;
+
+
+    dropInterval =
+        Math.max(
+            100,
+            800 -
+            (level - 1) * 65
+        );
+
+
+    updateUI();
+
+
+    showLineCongratulations(cleared);
+
+}
+
+}
+
 /* =====================================================
-   MOVE
+LINE CLEAR CONGRATULATIONS
+===================================================== */
+
+function showLineCongratulations(cleared) {
+
+let message = "";
+
+
+if (cleared === 1) {
+
+    message = "Nice! ✨";
+
+}
+
+else if (cleared === 2) {
+
+    message = "Great! 💕";
+
+}
+
+else if (cleared === 3) {
+
+    message = "Amazing! 🌟";
+
+}
+
+else if (cleared === 4) {
+
+    message = "TETRIS! 🎉";
+
+}
+
+
+const popup =
+    document.createElement("div");
+
+
+popup.className =
+    "line-congrat-popup";
+
+
+popup.textContent =
+    message;
+
+
+document.body.appendChild(popup);
+
+
+setTimeout(
+    () => {
+
+        popup.classList.add("show");
+
+    },
+    10
+);
+
+
+setTimeout(
+    () => {
+
+        popup.classList.remove("show");
+
+    },
+    1200
+);
+
+
+setTimeout(
+    () => {
+
+        popup.remove();
+
+    },
+    1500
+);
+
+}
+
+/* =====================================================
+MOVE
 ===================================================== */
 
 function move(direction) {
 
-    if (
-        !gameRunning ||
-        paused
-    ) {
-        return;
-    }
+if (
+    !gameRunning ||
+    paused
+) {
 
-
-    currentPiece.x += direction;
-
-
-    if (collision()) {
-        currentPiece.x -= direction;
-    }
+    return;
 
 }
 
 
+currentPiece.x += direction;
+
+
+if (collision()) {
+
+    currentPiece.x -= direction;
+
+    return;
+
+}
+
+
+playSound(moveSound);
+
+}
+
 /* =====================================================
-   SOFT DROP
+SOFT DROP
 ===================================================== */
 
 function softDrop() {
 
-    if (
-        !gameRunning ||
-        paused
-    ) {
-        return;
-    }
+if (
+    !gameRunning ||
+    paused
+) {
 
-
-    currentPiece.y++;
-
-
-    if (collision()) {
-
-        currentPiece.y--;
-
-        lockPiece();
-
-    }
-
-
-    dropCounter = 0;
+    return;
 
 }
 
 
-/* =====================================================
-   HARD DROP
-===================================================== */
-
-function hardDrop() {
-
-    if (
-        !gameRunning ||
-        paused
-    ) {
-        return;
-    }
+currentPiece.y++;
 
 
-    while (!collision()) {
-        currentPiece.y++;
-    }
-
+if (collision()) {
 
     currentPiece.y--;
 
@@ -427,76 +551,107 @@ function hardDrop() {
 }
 
 
+dropCounter = 0;
+
+}
+
 /* =====================================================
-   LOCK PIECE
+HARD DROP
+===================================================== */
+
+function hardDrop() {
+
+if (
+    !gameRunning ||
+    paused
+) {
+
+    return;
+
+}
+
+
+while (!collision()) {
+
+    currentPiece.y++;
+
+}
+
+
+currentPiece.y--;
+
+
+lockPiece();
+
+}
+
+/* =====================================================
+LOCK PIECE
 ===================================================== */
 
 function lockPiece() {
 
-    mergePiece();
+mergePiece();
 
-    clearLines();
+clearLines();
 
-    spawnPiece();
+spawnPiece();
 
-    dropCounter = 0;
+dropCounter = 0;
 
 }
 
-
 /* =====================================================
-   ROTATE
+ROTATE
 ===================================================== */
 
 function rotatePiece() {
 
-    if (
-        !gameRunning ||
-        paused
-    ) {
-        return;
-    }
+if (
+    !gameRunning ||
+    paused
+) {
+
+    return;
+
+}
 
 
-    const oldShape =
-        currentPiece.shape;
+const oldShape =
+    currentPiece.shape;
 
 
-    const rotated =
-        oldShape[0].map(
-            (_, index) =>
-                oldShape
-                    .map(row => row[index])
-                    .reverse()
-        );
+const rotated =
+    oldShape[0].map(
+        (_, index) =>
+            oldShape
+                .map(
+                    row => row[index]
+                )
+                .reverse()
+    );
 
 
-    currentPiece.shape =
-        rotated;
+currentPiece.shape =
+    rotated;
 
 
-    /*
-       Simple wall kick
-    */
+if (collision()) {
+
+    currentPiece.x++;
+
 
     if (collision()) {
 
-        currentPiece.x++;
+        currentPiece.x -= 2;
 
 
         if (collision()) {
 
-            currentPiece.x -= 2;
+            currentPiece.x++;
 
-
-            if (collision()) {
-
-                currentPiece.x++;
-
-                currentPiece.shape =
-                    oldShape;
-
-            }
+            currentPiece.shape =
+                oldShape;
 
         }
 
@@ -504,435 +659,585 @@ function rotatePiece() {
 
 }
 
+}
 
 /* =====================================================
-   DRAW BLOCK
+DRAW BLOCK
 ===================================================== */
 
 function drawBlock(
-    context,
+context,
+x,
+y,
+size,
+color
+) {
+
+context.fillStyle =
+    color;
+
+
+context.fillRect(
     x,
     y,
     size,
-    color
-) {
-
-    context.fillStyle = color;
-
-    context.fillRect(
-        x,
-        y,
-        size,
-        size
-    );
+    size
+);
 
 
-    context.fillStyle =
-        "rgba(255,255,255,0.22)";
-
-    context.fillRect(
-        x + 2,
-        y + 2,
-        size - 4,
-        4
-    );
+context.fillStyle =
+    "rgba(255,255,255,0.22)";
 
 
-    context.strokeStyle =
-        "rgba(0,0,0,0.18)";
+context.fillRect(
+    x + 2,
+    y + 2,
+    size - 4,
+    4
+);
 
-    context.strokeRect(
-        x,
-        y,
-        size,
-        size
-    );
+
+context.strokeStyle =
+    "rgba(0,0,0,0.18)";
+
+
+context.strokeRect(
+    x,
+    y,
+    size,
+    size
+);
 
 }
 
-
 /* =====================================================
-   DRAW BOARD
+DRAW BOARD
 ===================================================== */
 
 function draw() {
 
-    ctx.fillStyle = "#111";
+ctx.fillStyle =
+    "#111";
 
-    ctx.fillRect(
-        0,
-        0,
-        canvas.width,
+
+ctx.fillRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+);
+
+
+/* GRID */
+
+ctx.strokeStyle =
+    "rgba(255,255,255,0.035)";
+
+
+for (
+    let x = 0;
+    x <= COLS;
+    x++
+) {
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        x * BLOCK,
+        0
+    );
+
+    ctx.lineTo(
+        x * BLOCK,
         canvas.height
     );
 
+    ctx.stroke();
 
-    /*
-       Grid
-    */
-
-    ctx.strokeStyle =
-        "rgba(255,255,255,0.035)";
+}
 
 
-    for (
-        let x = 0;
-        x <= COLS;
-        x++
-    ) {
+for (
+    let y = 0;
+    y <= ROWS;
+    y++
+) {
 
-        ctx.beginPath();
+    ctx.beginPath();
 
-        ctx.moveTo(
-            x * BLOCK,
-            0
-        );
-
-        ctx.lineTo(
-            x * BLOCK,
-            canvas.height
-        );
-
-        ctx.stroke();
-
-    }
-
-
-    for (
-        let y = 0;
-        y <= ROWS;
-        y++
-    ) {
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            0,
-            y * BLOCK
-        );
-
-        ctx.lineTo(
-            canvas.width,
-            y * BLOCK
-        );
-
-        ctx.stroke();
-
-    }
-
-
-    /*
-       Locked blocks
-    */
-
-    board.forEach(
-        (row, y) => {
-
-            row.forEach(
-                (color, x) => {
-
-                    if (color) {
-
-                        drawBlock(
-                            ctx,
-                            x * BLOCK,
-                            y * BLOCK,
-                            BLOCK,
-                            color
-                        );
-
-                    }
-
-                }
-            );
-
-        }
+    ctx.moveTo(
+        0,
+        y * BLOCK
     );
 
+    ctx.lineTo(
+        canvas.width,
+        y * BLOCK
+    );
 
-    /*
-       Current piece
-    */
+    ctx.stroke();
 
-    if (currentPiece) {
+}
 
-        currentPiece.shape.forEach(
-            (row, y) => {
 
-                row.forEach(
-                    (value, x) => {
+/* LOCKED BLOCKS */
 
-                        if (value) {
+board.forEach(
+    (row, y) => {
 
-                            drawBlock(
-                                ctx,
+        row.forEach(
+            (color, x) => {
 
-                                (
-                                    currentPiece.x + x
-                                ) * BLOCK,
+                if (color) {
 
-                                (
-                                    currentPiece.y + y
-                                ) * BLOCK,
+                    drawBlock(
+                        ctx,
+                        x * BLOCK,
+                        y * BLOCK,
+                        BLOCK,
+                        color
+                    );
 
-                                BLOCK,
-
-                                currentPiece.color
-                            );
-
-                        }
-
-                    }
-                );
+                }
 
             }
         );
 
     }
-
-}
-
-
-/* =====================================================
-   DRAW NEXT PIECE
-===================================================== */
-
-function drawNext() {
-
-    nextCtx.fillStyle = "#f8f8f8";
-
-    nextCtx.fillRect(
-        0,
-        0,
-        120,
-        120
-    );
+);
 
 
-    if (!nextPiece) {
-        return;
-    }
+/* CURRENT PIECE */
 
+if (currentPiece) {
 
-    const shape =
-        nextPiece.shape;
-
-    const size = 25;
-
-
-    const width =
-        shape[0].length * size;
-
-    const height =
-        shape.length * size;
-
-
-    const startX =
-        (120 - width) / 2;
-
-    const startY =
-        (120 - height) / 2;
-
-
-    shape.forEach(
+    currentPiece.shape.forEach(
         (row, y) => {
 
             row.forEach(
                 (value, x) => {
 
-                    if (value) {
+                if (value) {
 
-                        drawBlock(
-                            nextCtx,
+                    drawBlock(
 
-                            startX +
-                            x * size,
+                        ctx,
 
-                            startY +
-                            y * size,
+                        (
+                            currentPiece.x +
+                            x
+                        ) * BLOCK,
 
-                            size,
+                        (
+                            currentPiece.y +
+                            y
+                        ) * BLOCK,
 
-                            nextPiece.color
-                        );
+                        BLOCK,
 
-                    }
+                        currentPiece.color
+
+                    );
 
                 }
-            );
+
+            });
 
         }
     );
 
 }
 
+}
 
 /* =====================================================
-   UPDATE SCORE
+DRAW NEXT PIECE
+===================================================== */
+
+function drawNext() {
+
+nextCtx.fillStyle =
+    "#f8f8f8";
+
+
+nextCtx.fillRect(
+    0,
+    0,
+    120,
+    120
+);
+
+
+if (!nextPiece) {
+
+    return;
+
+}
+
+
+const shape =
+    nextPiece.shape;
+
+
+const size = 25;
+
+
+const width =
+    shape[0].length * size;
+
+
+const height =
+    shape.length * size;
+
+
+const startX =
+    (120 - width) / 2;
+
+
+const startY =
+    (120 - height) / 2;
+
+
+shape.forEach(
+    (row, y) => {
+
+        row.forEach(
+            (value, x) => {
+
+                if (value) {
+
+                    drawBlock(
+
+                        nextCtx,
+
+                        startX +
+                        x * size,
+
+                        startY +
+                        y * size,
+
+                        size,
+
+                        nextPiece.color
+
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
+
+}
+
+/* =====================================================
+UPDATE UI
 ===================================================== */
 
 function updateUI() {
 
-    document.getElementById("score")
-        .textContent = score;
+document.getElementById("score")
+    .textContent = score;
 
 
-    document.getElementById("lines")
-        .textContent = lines;
+document.getElementById("lines")
+    .textContent = lines;
 
 
-    document.getElementById("level")
-        .textContent = level;
+document.getElementById("level")
+    .textContent = level;
 
 }
 
-
 /* =====================================================
-   GAME LOOP
+GAME LOOP
 ===================================================== */
 
 function update(time = 0) {
 
-    if (!gameRunning) {
-        return;
-    }
+if (!gameRunning) {
 
-
-    const deltaTime =
-        time - lastTime;
-
-
-    lastTime = time;
-
-
-    if (!paused) {
-
-        dropCounter += deltaTime;
-
-
-        if (
-            dropCounter > dropInterval
-        ) {
-            softDrop();
-        }
-
-
-        draw();
-
-    }
-
-
-    animationID =
-        requestAnimationFrame(update);
+    return;
 
 }
 
 
+const deltaTime =
+    time - lastTime;
+
+
+lastTime =
+    time;
+
+
+if (!paused) {
+
+    dropCounter += deltaTime;
+
+
+    if (
+        dropCounter > dropInterval
+    ) {
+
+        softDrop();
+
+    }
+
+
+    draw();
+
+}
+
+
+animationID =
+    requestAnimationFrame(update);
+
+}
+
 /* =====================================================
-   START GAME
+START GAME
 ===================================================== */
 
 function startGame() {
 
-    board = createBoard();
-
-    score = 0;
-    lines = 0;
-    level = 1;
-
-    dropInterval = 800;
+board =
+    createBoard();
 
 
-    updateUI();
+score = 0;
+
+lines = 0;
+
+level = 1;
 
 
-    nextPiece = null;
-
-    gameRunning = true;
-    paused = false;
+dropInterval = 800;
 
 
-    document.getElementById(
-        "pauseButton"
-    ).textContent = "⏸ Pause";
+updateUI();
 
 
-    hideOverlay();
+nextPiece = null;
 
 
-    spawnPiece();
+gameRunning = true;
+
+paused = false;
 
 
-    cancelAnimationFrame(
-        animationID
-    );
+document.getElementById(
+    "pauseButton"
+).textContent =
+    "⏸ Pause";
 
 
-    lastTime =
-        performance.now();
+hideOverlay();
 
 
-    update();
+spawnPiece();
+
+
+startMusic();
+
+
+cancelAnimationFrame(
+    animationID
+);
+
+
+lastTime =
+    performance.now();
+
+
+update();
 
 }
 
-
 /* =====================================================
-   PAUSE
+PAUSE
 ===================================================== */
 
 function pauseGame() {
 
-    if (!gameRunning) {
-        return;
-    }
+if (!gameRunning) {
 
-
-    if (!paused) {
-
-        paused = true;
-
-
-        showOverlay(
-            "Paused",
-            "Take a little break.",
-            "Resume"
-        );
-
-    } else {
-
-        resumeGame();
-
-    }
+    return;
 
 }
 
 
+if (!paused) {
+
+    paused = true;
+
+    pauseMusic();
+
+
+    showOverlay(
+        "Paused",
+        "Take a little break.",
+        "Resume"
+    );
+
+}
+
+else {
+
+    resumeGame();
+
+}
+
+}
+
 /* =====================================================
-   RESUME
+RESUME
 ===================================================== */
 
 function resumeGame() {
 
-    paused = false;
+paused = false;
 
-    hideOverlay();
+hideOverlay();
 
 
-    document.getElementById(
-        "pauseButton"
-    ).textContent = "⏸ Pause";
+startMusic();
+
+
+document.getElementById(
+    "pauseButton"
+).textContent =
+    "⏸ Pause";
 
 }
 
-
 /* =====================================================
-   RESTART
+RESTART
 ===================================================== */
 
 function restartGame() {
 
-    if (!gameRunning) {
+if (!gameRunning) {
+
+    startGame();
+
+    return;
+
+}
+
+
+showOverlay(
+    "Restart?",
+    "Your current game will be lost.",
+    "Yes, Restart"
+);
+
+
+document.getElementById(
+    "overlayCancel"
+).style.display =
+    "block";
+
+
+pauseMusic();
+
+}
+
+/* =====================================================
+GAME OVER
+===================================================== */
+
+function gameOver() {
+
+gameRunning = false;
+
+paused = false;
+
+
+stopMusic();
+
+
+playSound(gameOverSound);
+
+
+showOverlay(
+    "Game Over",
+    `Score: ${score}`,
+    "Play Again"
+);
+
+}
+
+/* =====================================================
+SHOW OVERLAY
+===================================================== */
+
+function showOverlay(
+title,
+subtitle,
+buttonText
+) {
+
+document.getElementById(
+    "overlayTitle"
+).textContent =
+    title;
+
+
+document.getElementById(
+    "overlaySubtitle"
+).textContent =
+    subtitle;
+
+
+document.getElementById(
+    "mainOverlayButton"
+).textContent =
+    buttonText;
+
+
+document.getElementById(
+    "overlay"
+).classList.remove("hidden");
+
+}
+
+/* =====================================================
+HIDE OVERLAY
+===================================================== */
+
+function hideOverlay() {
+
+document.getElementById(
+    "overlay"
+).classList.add("hidden");
+
+
+document.getElementById(
+    "overlayCancel"
+).style.display =
+    "none";
+
+}
+
+/* =====================================================
+OVERLAY MAIN BUTTON
+===================================================== */
+
+document.getElementById(
+"mainOverlayButton"
+).addEventListener(
+"click",
+() => {
+
+    const title =
+        document.getElementById(
+            "overlayTitle"
+        ).textContent;
+
+
+    if (title === "Restart?") {
 
         startGame();
 
@@ -941,306 +1246,195 @@ function restartGame() {
     }
 
 
-    showOverlay(
-        "Restart?",
-        "Your current game will be lost.",
-        "Yes, Restart"
-    );
+    if (title === "Paused") {
 
+        resumeGame();
 
-    document.getElementById(
-        "overlayCancel"
-    ).style.display = "block";
-
-}
-
-
-/* =====================================================
-   GAME OVER
-===================================================== */
-
-function gameOver() {
-
-    gameRunning = false;
-
-
-    showOverlay(
-        "Game Over",
-        `Score: ${score}`,
-        "Play Again"
-    );
-
-}
-
-
-/* =====================================================
-   SHOW OVERLAY
-===================================================== */
-
-function showOverlay(
-    title,
-    subtitle,
-    buttonText
-) {
-
-    document.getElementById(
-        "overlayTitle"
-    ).textContent = title;
-
-
-    document.getElementById(
-        "overlaySubtitle"
-    ).textContent = subtitle;
-
-
-    document.getElementById(
-        "mainOverlayButton"
-    ).textContent = buttonText;
-
-
-    document.getElementById(
-        "overlay"
-    ).classList.remove("hidden");
-
-}
-
-
-/* =====================================================
-   HIDE OVERLAY
-===================================================== */
-
-function hideOverlay() {
-
-    document.getElementById(
-        "overlay"
-    ).classList.add("hidden");
-
-
-    document.getElementById(
-        "overlayCancel"
-    ).style.display = "none";
-
-}
-
-
-/* =====================================================
-   OVERLAY MAIN BUTTON
-===================================================== */
-
-document.getElementById(
-    "mainOverlayButton"
-).addEventListener(
-    "click",
-    () => {
-
-        const title =
-            document.getElementById(
-                "overlayTitle"
-            ).textContent;
-
-
-        if (title === "Restart?") {
-
-            startGame();
-
-            return;
-
-        }
-
-
-        if (title === "Paused") {
-
-            resumeGame();
-
-            return;
-
-        }
-
-
-        startGame();
+        return;
 
     }
+
+
+    startGame();
+
+}
+
 );
 
-
 /* =====================================================
-   NO BUTTON
+NO BUTTON
 ===================================================== */
 
 document.getElementById(
-    "overlayCancel"
+"overlayCancel"
 ).addEventListener(
-    "click",
-    () => {
+"click",
+() => {
 
-        hideOverlay();
+    hideOverlay();
+
+
+    if (gameRunning) {
+
+        paused = false;
+
+        startMusic();
 
     }
+
+}
+
 );
 
-
 /* =====================================================
-   PAUSE BUTTON
+PAUSE BUTTON
 ===================================================== */
 
 document.getElementById(
-    "pauseButton"
+"pauseButton"
 ).addEventListener(
-    "click",
-    pauseGame
+"click",
+pauseGame
 );
 
-
 /* =====================================================
-   RESTART BUTTON
+RESTART BUTTON
 ===================================================== */
 
 document.getElementById(
-    "restartButton"
+"restartButton"
 ).addEventListener(
-    "click",
-    restartGame
+"click",
+restartGame
 );
 
-
 /* =====================================================
-   BACK TO ARCADE
+BACK TO ARCADE
 ===================================================== */
 
 document.getElementById(
-    "backButton"
+"backButton"
 ).addEventListener(
-    "click",
-    () => {
+"click",
+() => {
 
-        /*
-         * CHANGE THIS TO YOUR ARCADE
-         * GITHUB PAGES URL.
-         */
+    window.location.href =
+        "https://ruzrun.github.io/snake-game/";
 
-        window.location.href =
-            "https://ruzrun.github.io/snake-game/";
+}
 
-    }
 );
 
-
 /* =====================================================
-   KEYBOARD
+KEYBOARD
 ===================================================== */
 
 document.addEventListener(
-    "keydown",
-    event => {
+"keydown",
+event => {
 
-        if (event.key === "ArrowLeft") {
+    if (event.key === "ArrowLeft") {
 
-            event.preventDefault();
+        event.preventDefault();
 
-            move(-1);
-
-        }
-
-        else if (event.key === "ArrowRight") {
-
-            event.preventDefault();
-
-            move(1);
-
-        }
-
-        else if (event.key === "ArrowDown") {
-
-            event.preventDefault();
-
-            softDrop();
-
-        }
-
-        else if (event.key === "ArrowUp") {
-
-            event.preventDefault();
-
-            rotatePiece();
-
-        }
-
-        else if (event.code === "Space") {
-
-            event.preventDefault();
-
-            hardDrop();
-
-        }
-
-        else if (
-            event.key.toLowerCase() === "p"
-        ) {
-
-            pauseGame();
-
-        }
+        move(-1);
 
     }
+
+    else if (event.key === "ArrowRight") {
+
+        event.preventDefault();
+
+        move(1);
+
+    }
+
+    else if (event.key === "ArrowDown") {
+
+        event.preventDefault();
+
+        softDrop();
+
+    }
+
+    else if (event.key === "ArrowUp") {
+
+        event.preventDefault();
+
+        rotatePiece();
+
+    }
+
+    else if (event.code === "Space") {
+
+        event.preventDefault();
+
+        hardDrop();
+
+    }
+
+    else if (
+        event.key.toLowerCase() === "p"
+    ) {
+
+        pauseGame();
+
+    }
+
+}
+
 );
 
-
 /* =====================================================
-   MOBILE CONTROLS
+MOBILE CONTROLS
 ===================================================== */
 
 document.getElementById(
-    "leftButton"
+"leftButton"
 ).addEventListener(
-    "click",
-    () => move(-1)
+"click",
+() => move(-1)
 );
-
 
 document.getElementById(
-    "rightButton"
+"rightButton"
 ).addEventListener(
-    "click",
-    () => move(1)
+"click",
+() => move(1)
 );
-
 
 document.getElementById(
-    "rotateButton"
+"rotateButton"
 ).addEventListener(
-    "click",
-    rotatePiece
+"click",
+rotatePiece
 );
-
 
 document.getElementById(
-    "downButton"
+"downButton"
 ).addEventListener(
-    "click",
-    softDrop
+"click",
+softDrop
 );
-
 
 document.getElementById(
-    "dropButton"
+"dropButton"
 ).addEventListener(
-    "click",
-    hardDrop
+"click",
+hardDrop
 );
-
 
 /* =====================================================
-   INITIAL SCREEN
+INITIAL SCREEN
 ===================================================== */
 
-board = createBoard();
+board =
+createBoard();
 
 draw();
 
-
 showOverlay(
-    "Tetris",
-    "Ready to play?",
-    "Start Game"
+"Tetris",
+"Ready to play?",
+"Start Game"
 );
-
