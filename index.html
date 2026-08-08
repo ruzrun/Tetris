@@ -8,7 +8,17 @@
 
 <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+>
+
+<meta
+    name="apple-mobile-web-app-capable"
+    content="yes"
+>
+
+<meta
+    name="mobile-web-app-capable"
+    content="yes"
 >
 
 <title>Raa's Tetris 🎮</title>
@@ -57,22 +67,35 @@
 </button>
 
 
+
 <!-- =================================================
-     TETRIS GAME
+     BACKGROUND MUSIC
+================================================== -->
+
+<audio
+    id="bgMusic"
+    src="audio.mp3"
+    autoplay
+    loop
+    preload="auto"
+></audio>
+
+
+
+<!-- =================================================
+     GAME
 ================================================== -->
 
 <div class="game-wrapper">
 
-
     <div class="game-container">
 
 
-        <!-- =================================================
-             GAME BOARD
-        ================================================== -->
+        <!-- =========================================
+             TETRIS BOARD
+        ========================================== -->
 
         <div class="board-container">
-
 
             <canvas
                 id="gameCanvas"
@@ -81,9 +104,9 @@
             ></canvas>
 
 
-            <!-- =================================================
-                 START / PAUSE / RESTART OVERLAY
-            ================================================== -->
+            <!-- =====================================
+                 OVERLAY
+            ====================================== -->
 
             <div
                 class="overlay"
@@ -91,7 +114,6 @@
             >
 
                 <div class="overlay-box">
-
 
                     <div
                         class="overlay-title"
@@ -126,25 +148,24 @@
                         No
                     </button>
 
-
                 </div>
 
             </div>
 
-
         </div>
 
 
-        <!-- =================================================
+
+        <!-- =========================================
              SIDE PANEL
-        ================================================== -->
+        ========================================== -->
 
         <div class="side-panel">
 
 
-            <!-- =================================================
-                 TITLE
-            ================================================== -->
+            <!-- =====================================
+                 LOGO
+            ====================================== -->
 
             <div class="logo">
 
@@ -157,9 +178,10 @@
             </div>
 
 
-            <!-- =================================================
+
+            <!-- =====================================
                  SCORE
-            ================================================== -->
+            ====================================== -->
 
             <div class="info-card">
 
@@ -177,9 +199,10 @@
             </div>
 
 
-            <!-- =================================================
+
+            <!-- =====================================
                  LINES
-            ================================================== -->
+            ====================================== -->
 
             <div class="info-card">
 
@@ -197,9 +220,10 @@
             </div>
 
 
-            <!-- =================================================
+
+            <!-- =====================================
                  LEVEL
-            ================================================== -->
+            ====================================== -->
 
             <div class="info-card">
 
@@ -217,9 +241,10 @@
             </div>
 
 
-            <!-- =================================================
+
+            <!-- =====================================
                  NEXT PIECE
-            ================================================== -->
+            ====================================== -->
 
             <div class="info-card next-card">
 
@@ -236,9 +261,10 @@
             </div>
 
 
-            <!-- =================================================
+
+            <!-- =====================================
                  PAUSE
-            ================================================== -->
+            ====================================== -->
 
             <button
                 type="button"
@@ -249,9 +275,10 @@
             </button>
 
 
-            <!-- =================================================
+
+            <!-- =====================================
                  RESTART
-            ================================================== -->
+            ====================================== -->
 
             <button
                 type="button"
@@ -262,129 +289,75 @@
             </button>
 
 
-            <!-- =================================================
-                 MOBILE CONTROLS
-            ================================================== -->
+        </div>
 
-            <div class="mobile-controls">
+    </div>
 
 
-                <div class="mobile-row">
+    <!-- =================================================
+         MOBILE CONTROLS
+    ================================================== -->
+
+    <div class="mobile-controls">
 
 
-                    <button
-                        type="button"
-                        class="control-btn"
-                        id="leftButton"
-                    >
-                        ←
-                    </button>
+        <div class="mobile-row">
+
+            <button
+                type="button"
+                class="control-btn"
+                id="leftButton"
+            >
+                ←
+            </button>
 
 
-                    <button
-                        type="button"
-                        class="control-btn"
-                        id="rotateButton"
-                    >
-                        ↻
-                    </button>
+            <button
+                type="button"
+                class="control-btn"
+                id="rotateButton"
+            >
+                ↻
+            </button>
 
 
-                    <button
-                        type="button"
-                        class="control-btn"
-                        id="rightButton"
-                    >
-                        →
-                    </button>
-
-
-                </div>
-
-
-                <div class="mobile-row">
-
-
-                    <button
-                        type="button"
-                        class="control-btn"
-                        id="downButton"
-                    >
-                        ↓
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="control-btn"
-                        id="dropButton"
-                    >
-                        ⬇
-                    </button>
-
-
-                </div>
-
-
-            </div>
-
+            <button
+                type="button"
+                class="control-btn"
+                id="rightButton"
+            >
+                →
+            </button>
 
         </div>
 
 
+        <div class="mobile-row">
+
+            <button
+                type="button"
+                class="control-btn"
+                id="downButton"
+            >
+                ↓
+            </button>
+
+
+            <button
+                type="button"
+                class="control-btn"
+                id="dropButton"
+            >
+                ⬇
+            </button>
+
+        </div>
+
     </div>
+
 
 </div>
 
-
-<!-- =================================================
-     AUDIO
-     
-     Keeping your existing audio HTML so your
-     current JavaScript will not break.
-================================================== -->
-
-<audio
-    id="bgMusic"
-    src="audio/game.mp3"
-    loop
-    preload="auto"
-></audio>
-
-
-<audio
-    id="moveSound"
-    src="sounds/move.mp3"
-    preload="auto"
-></audio>
-
-
-<audio
-    id="rotateSound"
-    src="audio/collect.mp3"
-    preload="auto"
-></audio>
-
-
-<audio
-    id="lineClearSound"
-    src="audio/collect.mp3"
-    preload="auto"
-></audio>
-
-
-<audio
-    id="hardDropSound"
-    src="audio/collect.mp3"
-    preload="auto"
-></audio>
-
-
-<audio
-    id="gameOverSound"
-    src="audio/gameover.mp3"
-    preload="auto"
-></audio>
 
 
 <!-- =================================================
@@ -392,6 +365,56 @@
 ================================================== -->
 
 <script src="tetris.js"></script>
+
+
+<!-- =================================================
+     AUTOPLAY FALLBACK
+     
+     Browsers may block autoplay.
+     If the user taps the page, music starts.
+================================================== -->
+
+<script>
+
+    const bgMusic =
+        document.getElementById("bgMusic");
+
+
+    bgMusic.volume = 0.45;
+
+
+    function startMusic() {
+
+        bgMusic.play().catch(() => {
+
+            // Browser blocked autoplay.
+            // It will try again after user interaction.
+
+        });
+
+    }
+
+
+    window.addEventListener(
+        "load",
+        startMusic
+    );
+
+
+    document.addEventListener(
+        "click",
+        startMusic,
+        { once: true }
+    );
+
+
+    document.addEventListener(
+        "touchstart",
+        startMusic,
+        { once: true }
+    );
+
+</script>
 
 </body>
 
