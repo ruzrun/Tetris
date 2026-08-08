@@ -1,0 +1,232 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Raa's Tetris 🎮</title>
+
+    <link rel="stylesheet" href="tetris.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+</head>
+
+<body>
+
+    <div class="game-wrapper">
+
+        <div class="game-container">
+
+            <!-- TETRIS BOARD -->
+            <div class="board-container">
+
+                <canvas
+                    id="gameCanvas"
+                    width="300"
+                    height="600">
+                </canvas>
+
+                <!-- START / PAUSE / RESTART / GAME OVER -->
+                <div
+                    class="overlay"
+                    id="overlay">
+
+                    <div class="overlay-box">
+
+                        <div
+                            class="overlay-title"
+                            id="overlayTitle">
+                            Tetris
+                        </div>
+
+                        <div
+                            class="overlay-subtitle"
+                            id="overlaySubtitle">
+                            Ready to play?
+                        </div>
+
+                        <button
+                            class="overlay-button start-button"
+                            id="mainOverlayButton">
+                            Start Game
+                        </button>
+
+                        <button
+                            class="overlay-button cancel-button"
+                            id="overlayCancel">
+                            No
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SIDE PANEL -->
+            <div class="side-panel">
+
+                <div class="logo">
+                    Raa's <span>Tetris</span> 🎮
+                </div>
+
+
+                <div class="info-card">
+
+                    <div class="info-title">
+                        SCORE
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="score">
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <div class="info-title">
+                        LINES
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="lines">
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <div class="info-title">
+                        LEVEL
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="level">
+                        1
+                    </div>
+
+                </div>
+
+
+                <!-- NEXT PIECE -->
+
+                <div class="info-card next-card">
+
+                    <div class="next-title">
+                        NEXT
+                    </div>
+
+                    <canvas
+                        id="nextCanvas"
+                        width="120"
+                        height="120">
+                    </canvas>
+
+                </div>
+
+
+                <!-- PAUSE -->
+
+                <button
+                    class="button pause-btn"
+                    id="pauseButton">
+
+                    ⏸ Pause
+
+                </button>
+
+
+                <!-- RESTART -->
+
+                <button
+                    class="button restart-btn"
+                    id="restartButton">
+
+                    ↻ Restart
+
+                </button>
+
+
+                <!-- BACK TO ARCADE -->
+
+                <button
+                    class="button back-btn"
+                    id="backButton">
+
+                    ← Back to Arcade
+
+                </button>
+
+
+                <!-- MOBILE CONTROLS -->
+
+                <div class="mobile-controls">
+
+                    <div class="mobile-row">
+
+                        <button
+                            class="control-btn"
+                            id="leftButton">
+                            ←
+                        </button>
+
+                        <button
+                            class="control-btn"
+                            id="rotateButton">
+                            ↻
+                        </button>
+
+                        <button
+                            class="control-btn"
+                            id="rightButton">
+                            →
+                        </button>
+
+                    </div>
+
+                    <div class="mobile-row">
+
+                        <button
+                            class="control-btn"
+                            id="downButton">
+                            ↓
+                        </button>
+
+                        <button
+                            class="control-btn"
+                            id="dropButton">
+                            ⬇
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="tetris.js"></script>
+
+</body>
+</html>
+```
