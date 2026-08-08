@@ -3,17 +3,26 @@ RESET
 ===================================================== */
 
 {
+
 box-sizing: border-box;
+
 margin: 0;
+
 padding: 0;
+
 }
 
 html,
 body {
+
 width: 100%;
+
 min-height: 100%;
+
 margin: 0;
+
 padding: 0;
+
 }
 
 /* =====================================================
@@ -23,11 +32,16 @@ BODY
 body {
 
 min-height: 100vh;
+
 min-height: 100svh;
 
-font-family: 'Poppins', sans-serif;
+font-family:
+    'Poppins',
+    sans-serif;
+
 
 background:
+
     radial-gradient(
         circle at 15% 20%,
         rgba(255, 180, 215, 0.75),
@@ -54,18 +68,23 @@ background:
         #fff0f7
     );
 
+
 background-size:
+
     180% 180%,
     180% 180%,
     180% 180%,
     400% 400%;
 
+
 animation:
     gradientMove 24s ease-in-out infinite;
+
 
 background-attachment: fixed;
 
 background-repeat: no-repeat;
+
 
 color: #333;
 
@@ -80,51 +99,68 @@ MOVING BACKGROUND
 @keyframes gradientMove {
 
 0% {
+
     background-position:
         0% 20%,
         100% 20%,
         50% 100%,
         0% 50%;
+
 }
 
+
 20% {
+
     background-position:
         40% 0%,
         70% 60%,
         100% 40%,
         30% 70%;
+
 }
 
+
 40% {
+
     background-position:
         100% 30%,
         20% 100%,
         40% 0%,
         70% 20%;
+
 }
 
+
 60% {
+
     background-position:
         70% 100%,
         0% 40%,
         100% 70%,
         100% 80%;
+
 }
 
+
 80% {
+
     background-position:
         20% 70%,
         100% 0%,
         0% 30%,
         30% 0%;
+
 }
 
+
 100% {
+
     background-position:
         0% 20%,
         100% 20%,
         50% 100%,
         0% 50%;
+
 }
 
 }
@@ -138,6 +174,7 @@ GAME WRAPPER
 width: 100%;
 
 min-height: 100vh;
+
 min-height: 100svh;
 
 display: flex;
@@ -150,8 +187,6 @@ padding:
     70px
     20px
     30px;
-
-background: transparent;
 
 }
 
@@ -174,7 +209,7 @@ gap: 25px;
 }
 
 /* =====================================================
-BOARD CONTAINER
+BOARD
 ===================================================== */
 
 .board-container {
@@ -190,16 +225,14 @@ padding: 8px;
 border-radius: 14px;
 
 box-shadow:
-    0 15px 40px rgba(0, 0, 0, 0.20),
+
+    0 15px 40px
+    rgba(0, 0, 0, 0.20),
 
     0 0 0 3px
     rgba(255, 255, 255, 0.65);
 
 }
-
-/* =====================================================
-TETRIS CANVAS
-===================================================== */
 
 #gameCanvas {
 
@@ -237,7 +270,9 @@ LOGO
 
 .logo {
 
-font-family: 'Dancing Script', cursive;
+font-family:
+    'Dancing Script',
+    cursive;
 
 font-size: 34px;
 
@@ -264,9 +299,11 @@ INFO CARDS
 background:
     rgba(255, 255, 255, 0.55);
 
-backdrop-filter: blur(14px);
+backdrop-filter:
+    blur(14px);
 
--webkit-backdrop-filter: blur(14px);
+-webkit-backdrop-filter:
+    blur(14px);
 
 border:
     1px solid
@@ -357,7 +394,9 @@ padding: 12px 14px;
 
 border-radius: 14px;
 
-font-family: 'Poppins', sans-serif;
+font-family:
+    'Poppins',
+    sans-serif;
 
 font-size: 14px;
 
@@ -373,7 +412,8 @@ transition:
 
 .button {
 
-transform: translateY(-2px);
+transform:
+    translateY(-2px);
 
 box-shadow:
     0 8px 18px
@@ -383,7 +423,8 @@ box-shadow:
 
 .button {
 
-transform: scale(0.97);
+transform:
+    scale(0.97);
 
 }
 
@@ -434,6 +475,7 @@ background:
         rgba(225, 242, 255, 0.96)
     );
 
+
 display: flex;
 
 justify-content: center;
@@ -444,9 +486,12 @@ text-align: center;
 
 z-index: 100;
 
-backdrop-filter: blur(8px);
 
--webkit-backdrop-filter: blur(8px);
+backdrop-filter:
+    blur(8px);
+
+-webkit-backdrop-filter:
+    blur(8px);
 
 }
 
@@ -481,9 +526,11 @@ box-shadow:
     0 12px 35px
     rgba(0, 0, 0, 0.10);
 
-backdrop-filter: blur(10px);
+backdrop-filter:
+    blur(10px);
 
--webkit-backdrop-filter: blur(10px);
+-webkit-backdrop-filter:
+    blur(10px);
 
 }
 
@@ -493,7 +540,9 @@ OVERLAY TITLE
 
 .overlay-title {
 
-font-family: 'Dancing Script', cursive;
+font-family:
+    'Dancing Script',
+    cursive;
 
 font-size: 48px;
 
@@ -533,7 +582,9 @@ margin-top: 10px;
 
 border-radius: 15px;
 
-font-family: 'Poppins', sans-serif;
+font-family:
+    'Poppins',
+    sans-serif;
 
 font-weight: 600;
 
@@ -541,30 +592,17 @@ font-size: 14px;
 
 cursor: pointer;
 
-transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-
 }
 
 .overlay-button {
 
-transform: translateY(-2px);
-
-box-shadow:
-    0 8px 18px
-    rgba(0, 0, 0, 0.10);
-
-}
-
-.overlay-button {
-
-transform: scale(0.97);
+transform:
+    scale(0.97);
 
 }
 
 /* =====================================================
-START BUTTON
+START
 ===================================================== */
 
 .start-button {
@@ -629,7 +667,7 @@ border: none;
 border-radius: 12px;
 
 background:
-    rgba(255, 255, 255, 0.72);
+    rgba(255, 255, 255, 0.80);
 
 font-size: 20px;
 
@@ -637,20 +675,26 @@ color: #555;
 
 cursor: pointer;
 
-box-shadow:
-    0 4px 10px
-    rgba(0, 0, 0, 0.08);
+touch-action: manipulation;
+
+user-select: none;
+
+-webkit-user-select: none;
+
+-webkit-tap-highlight-color:
+    transparent;
 
 }
 
 .control-btn {
 
-transform: scale(0.93);
+transform:
+    scale(0.93);
 
 }
 
 /* =====================================================
-BACK TO ARCADE
+BACK BUTTON
 ===================================================== */
 
 .back-arcade-fixed {
@@ -674,29 +718,23 @@ border-radius: 14px;
 background:
     rgba(255, 255, 255, 0.70);
 
-backdrop-filter: blur(12px);
+backdrop-filter:
+    blur(12px);
 
--webkit-backdrop-filter: blur(12px);
+-webkit-backdrop-filter:
+    blur(12px);
 
 color: #555;
 
-font-family: 'Poppins', sans-serif;
+font-family:
+    'Poppins',
+    sans-serif;
 
 font-size: 14px;
 
 font-weight: 600;
 
 cursor: pointer;
-
-box-shadow:
-    0 8px 25px
-    rgba(0, 0, 0, 0.10);
-
-}
-
-.back-arcade-fixed {
-
-transform: scale(0.96);
 
 }
 
@@ -723,6 +761,7 @@ TABLET
 
 /* =====================================================
 MOBILE
+BOARD LEFT + PANEL RIGHT
 ===================================================== */
 
 @media (max-width: 700px) {
@@ -732,11 +771,7 @@ body {
 
     width: 100%;
 
-    max-width: 100%;
-
     height: 100%;
-
-    min-height: 100%;
 
     margin: 0;
 
@@ -764,9 +799,9 @@ body {
 }
 
 
-/* =============================================
+/* ===============================================
    PAGE
-============================================= */
+=============================================== */
 
 .game-wrapper {
 
@@ -783,87 +818,85 @@ body {
     padding:
 
         calc(
-            45px +
+            50px +
             env(safe-area-inset-top)
         )
 
-        8px
+        7px
 
         calc(
-            105px +
+            75px +
             env(safe-area-inset-bottom)
         );
 
     display: flex;
 
-    justify-content: flex-start;
-
     align-items: center;
+
+    justify-content: center;
 
     overflow: hidden;
 
 }
 
 
-/* =============================================
+/* ===============================================
    GAME
-============================================= */
+=============================================== */
 
 .game-container {
 
     width: 100%;
 
-    max-width: 100%;
-
-    height: 100%;
+    max-width: 500px;
 
     min-width: 0;
 
+    height: auto;
+
     display: flex;
 
-    flex-direction: column;
+    flex-direction: row;
 
     align-items: center;
 
-    justify-content: flex-start;
+    justify-content: center;
 
-    gap: 0;
-
-    overflow: hidden;
+    gap: 8px;
 
 }
 
 
-/* =============================================
+/* ===============================================
    BOARD
-============================================= */
+=============================================== */
 
 .board-container {
 
-    position: relative;
-
-    flex: 0 0 auto;
+    flex:
+        0 1 auto;
 
     width: auto;
 
     height:
-
         min(
-            60svh,
+            72svh,
             500px
         );
 
-    aspect-ratio: 1 / 2;
+    aspect-ratio:
+        1 / 2;
 
-    max-width:
-        calc(100vw - 16px);
+    max-width: 65vw;
 
     max-height:
-        calc(100svh - 185px);
+        calc(
+            100svh - 135px
+        );
 
     padding: 4px;
 
-    margin: 0 auto;
+    margin: 0;
 
     border-radius: 9px;
 
@@ -871,8 +904,6 @@ body {
 
 
 #gameCanvas {
-
-    display: block;
 
     width: 100%;
 
@@ -882,37 +913,28 @@ body {
 
     max-height: 100%;
 
-    aspect-ratio: 1 / 2;
+    aspect-ratio:
+        1 / 2;
 
     border-radius: 5px;
 
 }
 
 
-/* =============================================
+/* ===============================================
    SIDE PANEL
-============================================= */
+=============================================== */
 
 .side-panel {
 
-    width: 100%;
+    flex:
+        1 1 auto;
 
-    max-width: 360px;
+    width: auto;
 
-    min-width: 0;
+    max-width: 135px;
 
-    margin: 5px auto 0;
-
-    padding:
-
-        0
-
-        0
-
-        calc(
-            88px +
-            env(safe-area-inset-bottom)
-        );
+    min-width: 90px;
 
     display: flex;
 
@@ -920,28 +942,26 @@ body {
 
     align-items: stretch;
 
-    gap: 4px;
+    justify-content: center;
+
+    gap: 6px;
 
     overflow: hidden;
 
 }
 
 
-/* =============================================
+/* ===============================================
    LOGO
-============================================= */
+=============================================== */
 
 .logo {
 
     width: 100%;
 
-    max-width: 100%;
+    font-size: 20px;
 
-    min-width: 0;
-
-    font-size: 21px;
-
-    line-height: 1;
+    line-height: 1.1;
 
     text-align: center;
 
@@ -952,31 +972,27 @@ body {
 }
 
 
-/* =============================================
-   SCORE / LINES / LEVEL
-============================================= */
+/* ===============================================
+   INFO
+=============================================== */
 
 .info-card {
 
     width: 100%;
 
-    max-width: 100%;
-
     min-width: 0;
 
-    min-height: 30px;
+    min-height: 50px;
 
-    padding: 4px 10px;
+    padding: 7px;
 
-    margin: 0;
-
-    border-radius: 10px;
+    border-radius: 11px;
 
     display: flex;
 
-    flex-direction: row;
+    flex-direction: column;
 
-    justify-content: space-between;
+    justify-content: center;
 
     align-items: center;
 
@@ -987,33 +1003,27 @@ body {
 
 .info-title {
 
-    min-width: 0;
-
     font-size: 8px;
 
-    margin: 0;
+    letter-spacing: 0.5px;
 
-    white-space: nowrap;
+    margin-bottom: 2px;
 
 }
 
 
 .info-value {
 
-    min-width: 0;
-
-    font-size: 15px;
+    font-size: 18px;
 
     line-height: 1;
-
-    white-space: nowrap;
 
 }
 
 
-/* =============================================
-   NEXT
-============================================= */
+/* ===============================================
+   HIDE NEXT ON PHONE
+=============================================== */
 
 .next-card {
 
@@ -1022,30 +1032,24 @@ body {
 }
 
 
-/* =============================================
-   PAUSE / RESTART
-============================================= */
+/* ===============================================
+   PAUSE + RESTART
+=============================================== */
 
 .pause-btn,
 .restart-btn {
 
     width: 100%;
 
-    max-width: 100%;
+    min-height: 34px;
 
-    min-width: 0;
+    padding: 6px;
 
-    min-height: 28px;
-
-    padding: 4px 8px;
-
-    margin: 2px 0 0;
+    margin: 0;
 
     font-size: 9px;
 
-    border-radius: 9px;
-
-    flex-shrink: 0;
+    border-radius: 10px;
 
     position: relative;
 
@@ -1053,15 +1057,12 @@ body {
 
     touch-action: manipulation;
 
-    -webkit-tap-highlight-color:
-        transparent;
-
 }
 
 
-/* =============================================
+/* ===============================================
    MOBILE CONTROLS
-============================================= */
+=============================================== */
 
 .mobile-controls {
 
@@ -1080,21 +1081,13 @@ body {
 
     width: 100%;
 
-    max-width: 100vw;
-
-    height: auto;
+    display: block;
 
     z-index: 99999;
-
-    display: block;
 
     margin: 0;
 
     padding: 0;
-
-    overflow: hidden;
-
-    pointer-events: auto;
 
 }
 
@@ -1109,7 +1102,7 @@ body {
 
     align-items: center;
 
-    gap: 6px;
+    gap: 7px;
 
     margin: 3px 0;
 
@@ -1118,78 +1111,44 @@ body {
 
 .control-btn {
 
-    flex: 0 0 auto;
+    width: 48px;
 
-    width: 47px;
-
-    height: 35px;
+    height: 34px;
 
     padding: 0;
 
-    border: none;
-
-    border-radius: 10px;
-
-    background:
-        rgba(255, 255, 255, 0.90);
-
-    color: #555;
-
     font-size: 18px;
 
-    line-height: 1;
-
-    touch-action: manipulation;
-
-    -webkit-tap-highlight-color:
-        transparent;
-
-    user-select: none;
-
-    -webkit-user-select: none;
+    border-radius: 10px;
 
 }
 
 
-/* =============================================
+/* ===============================================
    BACK BUTTON
-============================================= */
+=============================================== */
 
 .back-arcade-fixed {
-
-    position: fixed;
 
     top:
 
         calc(
-            7px +
+            8px +
             env(safe-area-inset-top)
         );
 
-    left: 7px;
-
-    z-index: 999999;
-
-    max-width:
-        calc(100vw - 14px);
+    left: 8px;
 
     padding: 7px 11px;
 
     font-size: 11px;
 
-    white-space: nowrap;
-
-    touch-action: manipulation;
-
-    -webkit-tap-highlight-color:
-        transparent;
-
 }
 
 
-/* =============================================
+/* ===============================================
    OVERLAY
-============================================= */
+=============================================== */
 
 .overlay {
 
@@ -1206,7 +1165,7 @@ body {
 
     width: 82%;
 
-    max-width: 260px;
+    max-width: 250px;
 
     padding: 17px;
 
@@ -1233,11 +1192,7 @@ body {
 
 .overlay-button {
 
-    width: 100%;
-
     padding: 10px;
-
-    margin-top: 7px;
 
     font-size: 12px;
 
@@ -1248,68 +1203,54 @@ body {
 }
 
 /* =====================================================
-SHORT PHONES
+SMALL PHONES
 ===================================================== */
 
-@media (max-width: 700px) and (max-height: 700px) {
+@media (max-width: 380px) {
 
-.game-wrapper {
+.game-container {
 
-    padding-top:
-
-        calc(
-            43px +
-            env(safe-area-inset-top)
-        );
-
-    padding-bottom:
-
-        calc(
-            100px +
-            env(safe-area-inset-bottom)
-        );
+    gap: 5px;
 
 }
 
 
 .board-container {
 
-    height: 56svh;
+    max-width: 62vw;
 
-    max-height:
-        calc(100svh - 165px);
+    height:
+        min(
+            70svh,
+            450px
+        );
 
 }
 
 
 .side-panel {
 
-    margin-top: 3px;
+    min-width: 82px;
 
-    gap: 3px;
+    max-width: 110px;
 
-    padding-bottom:
-
-        calc(
-            82px +
-            env(safe-area-inset-bottom)
-        );
+    gap: 4px;
 
 }
 
 
 .logo {
 
-    font-size: 18px;
+    font-size: 17px;
 
 }
 
 
 .info-card {
 
-    min-height: 27px;
+    min-height: 44px;
 
-    padding: 3px 9px;
+    padding: 5px;
 
 }
 
@@ -1323,7 +1264,7 @@ SHORT PHONES
 
 .info-value {
 
-    font-size: 13px;
+    font-size: 16px;
 
 }
 
@@ -1331,11 +1272,9 @@ SHORT PHONES
 .pause-btn,
 .restart-btn {
 
-    min-height: 25px;
+    min-height: 30px;
 
     font-size: 8px;
-
-    margin-top: 1px;
 
 }
 
@@ -1350,37 +1289,22 @@ SHORT PHONES
 
 }
 
-
-.mobile-row {
-
-    gap: 5px;
-
-    margin: 2px 0;
-
-}
-
 }
 
 /* =====================================================
-VERY SHORT PHONES
+SHORT PHONES
 ===================================================== */
 
-@media (max-width: 700px) and (max-height: 600px) {
+@media (max-width: 700px)
+and (max-height: 650px) {
 
 .game-wrapper {
 
     padding-top:
 
         calc(
-            40px +
+            45px +
             env(safe-area-inset-top)
-        );
-
-    padding-bottom:
-
-        calc(
-            94px +
-            env(safe-area-inset-bottom)
         );
 
 }
@@ -1388,43 +1312,37 @@ VERY SHORT PHONES
 
 .board-container {
 
-    height: 50svh;
+    height:
+        min(
+            68svh,
+            420px
+        );
 
     max-height:
-        calc(100svh - 145px);
+        calc(
+            100svh - 125px
+        );
 
 }
 
 
 .side-panel {
 
-    padding-bottom:
-
-        calc(
-            78px +
-            env(safe-area-inset-bottom)
-        );
-
-}
-
-
-.logo {
-
-    font-size: 16px;
+    gap: 4px;
 
 }
 
 
 .info-card {
 
-    min-height: 24px;
+    min-height: 40px;
 
 }
 
 
 .info-value {
 
-    font-size: 12px;
+    font-size: 15px;
 
 }
 
@@ -1432,49 +1350,7 @@ VERY SHORT PHONES
 .pause-btn,
 .restart-btn {
 
-    min-height: 23px;
-
-    font-size: 7px;
-
-}
-
-
-.control-btn {
-
-    width: 42px;
-
-    height: 30px;
-
-    font-size: 15px;
-
-}
-
-}
-
-/* =====================================================
-TOUCH / MOBILE ZOOM PROTECTION
-===================================================== */
-
-@media (max-width: 700px) {
-
-button,
-canvas {
-
-    touch-action: manipulation;
-
-    user-select: none;
-
-    -webkit-user-select: none;
-
-    -webkit-touch-callout: none;
-
-}
-
-
-button {
-
-    -webkit-tap-highlight-color:
-        transparent;
+    min-height: 28px;
 
 }
 
