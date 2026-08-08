@@ -85,7 +85,6 @@ background-attachment: fixed;
 
 background-repeat: no-repeat;
 
-
 color: #333;
 
 overflow-x: hidden;
@@ -428,10 +427,6 @@ transform:
 
 }
 
-/* =====================================================
-PAUSE
-===================================================== */
-
 .pause-btn {
 
 background:
@@ -440,10 +435,6 @@ background:
 color: white;
 
 }
-
-/* =====================================================
-RESTART
-===================================================== */
 
 .restart-btn {
 
@@ -534,10 +525,6 @@ backdrop-filter:
 
 }
 
-/* =====================================================
-OVERLAY TITLE
-===================================================== */
-
 .overlay-title {
 
 font-family:
@@ -563,10 +550,6 @@ color: #777;
 margin-bottom: 25px;
 
 }
-
-/* =====================================================
-OVERLAY BUTTONS
-===================================================== */
 
 .overlay-button {
 
@@ -601,10 +584,6 @@ transform:
 
 }
 
-/* =====================================================
-START
-===================================================== */
-
 .start-button {
 
 background:
@@ -619,10 +598,6 @@ color: white;
 
 }
 
-/* =====================================================
-CANCEL
-===================================================== */
-
 .cancel-button {
 
 background:
@@ -631,6 +606,77 @@ background:
 color: #555;
 
 display: none;
+
+}
+
+/* =====================================================
+LINE CLEAR POPUP
+===================================================== */
+
+.line-popup {
+
+position: absolute;
+
+left: 50%;
+
+top: 45%;
+
+transform:
+    translate(-50%, -50%)
+    scale(0.7);
+
+opacity: 0;
+
+pointer-events: none;
+
+z-index: 200;
+
+transition:
+    opacity 0.2s ease,
+    transform 0.25s ease;
+
+}
+
+.line-popup.show {
+
+opacity: 1;
+
+transform:
+    translate(-50%, -50%)
+    scale(1);
+
+}
+
+.line-popup-text {
+
+padding:
+    14px
+    24px;
+
+border-radius: 18px;
+
+background:
+    rgba(255, 255, 255, 0.92);
+
+border:
+    2px solid
+    rgba(217, 108, 155, 0.35);
+
+box-shadow:
+    0 12px 35px
+    rgba(0, 0, 0, 0.18);
+
+font-family:
+    'Dancing Script',
+    cursive;
+
+font-size: 32px;
+
+font-weight: 700;
+
+color: #d96c9b;
+
+white-space: nowrap;
 
 }
 
@@ -736,13 +782,84 @@ font-weight: 600;
 
 cursor: pointer;
 
+box-shadow:
+    0 8px 25px
+    rgba(0, 0, 0, 0.10);
+
+}
+
+/* =====================================================
+SOUND BUTTON
+===================================================== */
+
+.sound-fixed {
+
+position: fixed;
+
+top: 15px;
+
+right: 15px;
+
+z-index: 9999;
+
+width: 44px;
+
+height: 44px;
+
+border:
+    1px solid
+    rgba(255, 255, 255, 0.8);
+
+border-radius: 14px;
+
+background:
+    rgba(255, 255, 255, 0.70);
+
+backdrop-filter:
+    blur(12px);
+
+-webkit-backdrop-filter:
+    blur(12px);
+
+color: #555;
+
+font-size: 20px;
+
+cursor: pointer;
+
+display: flex;
+
+justify-content: center;
+
+align-items: center;
+
+box-shadow:
+    0 8px 25px
+    rgba(0, 0, 0, 0.10);
+
+transition:
+    transform 0.15s ease;
+
+touch-action: manipulation;
+
+-webkit-tap-highlight-color:
+    transparent;
+
+}
+
+.sound-fixed {
+
+transform:
+    scale(0.92);
+
 }
 
 /* =====================================================
 TABLET
 ===================================================== */
 
-@media (max-width: 900px) and (min-width: 701px) {
+@media (max-width: 900px)
+and (min-width: 701px) {
 
 .game-container {
 
@@ -761,7 +878,6 @@ TABLET
 
 /* =====================================================
 MOBILE
-BOARD LEFT + PANEL RIGHT
 ===================================================== */
 
 @media (max-width: 700px) {
@@ -825,7 +941,7 @@ body {
         7px
 
         calc(
-            75px +
+            78px +
             env(safe-area-inset-bottom)
         );
 
@@ -1022,7 +1138,7 @@ body {
 
 
 /* ===============================================
-   HIDE NEXT ON PHONE
+   HIDE NEXT
 =============================================== */
 
 .next-card {
@@ -1033,7 +1149,7 @@ body {
 
 
 /* ===============================================
-   PAUSE + RESTART
+   PAUSE / RESTART
 =============================================== */
 
 .pause-btn,
@@ -1073,7 +1189,6 @@ body {
     right: 0;
 
     bottom:
-
         calc(
             5px +
             env(safe-area-inset-bottom)
@@ -1131,7 +1246,6 @@ body {
 .back-arcade-fixed {
 
     top:
-
         calc(
             8px +
             env(safe-area-inset-top)
@@ -1142,6 +1256,31 @@ body {
     padding: 7px 11px;
 
     font-size: 11px;
+
+}
+
+
+/* ===============================================
+   SOUND BUTTON
+=============================================== */
+
+.sound-fixed {
+
+    top:
+        calc(
+            8px +
+            env(safe-area-inset-top)
+        );
+
+    right: 8px;
+
+    width: 38px;
+
+    height: 38px;
+
+    border-radius: 12px;
+
+    font-size: 17px;
 
 }
 
@@ -1200,10 +1339,27 @@ body {
 
 }
 
+
+/* ===============================================
+   LINE POPUP
+=============================================== */
+
+.line-popup-text {
+
+    font-size: 25px;
+
+    padding:
+        11px
+        18px;
+
+    border-radius: 15px;
+
+}
+
 }
 
 /* =====================================================
-SMALL PHONES
+VERY SMALL PHONES
 ===================================================== */
 
 @media (max-width: 380px) {
@@ -1289,6 +1445,17 @@ SMALL PHONES
 
 }
 
+
+.sound-fixed {
+
+    width: 36px;
+
+    height: 36px;
+
+    font-size: 16px;
+
+}
+
 }
 
 /* =====================================================
@@ -1301,7 +1468,6 @@ and (max-height: 650px) {
 .game-wrapper {
 
     padding-top:
-
         calc(
             45px +
             env(safe-area-inset-top)
