@@ -1631,7 +1631,7 @@ document.getElementById(
 () => {
 
     window.location.href =
-        "https://ruzrun.github.io/snake-game/";
+        "https://ruzrun.github.io/arcade-game/";
 
 }
 
