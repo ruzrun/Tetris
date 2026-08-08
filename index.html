@@ -1,31 +1,59 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Raa's Tetris 🎮</title>
 
-    <link rel="stylesheet" href="tetris.css">
+
+    <!-- Google Fonts -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap"
         rel="stylesheet"
     >
+
+
+    <!-- Tetris CSS -->
+
+    <link
+        rel="stylesheet"
+        href="tetris.css"
+    >
+
 </head>
 
+
 <body>
+
+
+    <!-- =========================
+         TETRIS GAME
+    ========================== -->
 
     <div class="game-wrapper">
 
         <div class="game-container">
 
-            <!-- TETRIS BOARD -->
+
+            <!-- =========================
+                 GAME BOARD
+            ========================== -->
+
             <div class="board-container">
+
 
                 <canvas
                     id="gameCanvas"
@@ -33,36 +61,50 @@
                     height="600">
                 </canvas>
 
-                <!-- START / PAUSE / RESTART / GAME OVER -->
+
+                <!-- =========================
+                     START / PAUSE / RESTART
+                ========================== -->
+
                 <div
                     class="overlay"
-                    id="overlay">
+                    id="overlay"
+                >
 
                     <div class="overlay-box">
 
+
                         <div
                             class="overlay-title"
-                            id="overlayTitle">
+                            id="overlayTitle"
+                        >
                             Tetris
                         </div>
 
+
                         <div
                             class="overlay-subtitle"
-                            id="overlaySubtitle">
+                            id="overlaySubtitle"
+                        >
                             Ready to play?
                         </div>
 
+
                         <button
                             class="overlay-button start-button"
-                            id="mainOverlayButton">
+                            id="mainOverlayButton"
+                        >
                             Start Game
                         </button>
 
+
                         <button
                             class="overlay-button cancel-button"
-                            id="overlayCancel">
+                            id="overlayCancel"
+                        >
                             No
                         </button>
+
 
                     </div>
 
@@ -71,13 +113,27 @@
             </div>
 
 
-            <!-- SIDE PANEL -->
+
+            <!-- =========================
+                 SIDE PANEL
+            ========================== -->
+
             <div class="side-panel">
 
+
+                <!-- TITLE -->
+
                 <div class="logo">
-                    Raa's <span>Tetris</span> 🎮
+
+                    Raa's
+                    <span>Tetris</span>
+                    🎮
+
                 </div>
 
+
+
+                <!-- SCORE -->
 
                 <div class="info-card">
 
@@ -87,12 +143,16 @@
 
                     <div
                         class="info-value"
-                        id="score">
+                        id="score"
+                    >
                         0
                     </div>
 
                 </div>
 
+
+
+                <!-- LINES -->
 
                 <div class="info-card">
 
@@ -102,12 +162,16 @@
 
                     <div
                         class="info-value"
-                        id="lines">
+                        id="lines"
+                    >
                         0
                     </div>
 
                 </div>
 
+
+
+                <!-- LEVEL -->
 
                 <div class="info-card">
 
@@ -117,16 +181,20 @@
 
                     <div
                         class="info-value"
-                        id="level">
+                        id="level"
+                    >
                         1
                     </div>
 
                 </div>
 
 
+
                 <!-- NEXT PIECE -->
 
-                <div class="info-card next-card">
+                <div
+                    class="info-card next-card"
+                >
 
                     <div class="next-title">
                         NEXT
@@ -135,82 +203,99 @@
                     <canvas
                         id="nextCanvas"
                         width="120"
-                        height="120">
+                        height="120"
+                    >
                     </canvas>
 
                 </div>
+
 
 
                 <!-- PAUSE -->
 
                 <button
                     class="button pause-btn"
-                    id="pauseButton">
-
+                    id="pauseButton"
+                >
                     ⏸ Pause
-
                 </button>
+
 
 
                 <!-- RESTART -->
 
                 <button
                     class="button restart-btn"
-                    id="restartButton">
-
+                    id="restartButton"
+                >
                     ↻ Restart
-
                 </button>
 
 
-                <!-- BACK TO ARCADE -->
+
+                <!-- =========================
+                     BACK TO ARCADE
+                ========================== -->
 
                 <button
                     class="button back-btn"
-                    id="backButton">
-
+                    id="backButton"
+                >
                     ← Back to Arcade
-
                 </button>
 
 
-                <!-- MOBILE CONTROLS -->
 
-                <div class="mobile-controls">
+                <!-- =========================
+                     MOBILE CONTROLS
+                ========================== -->
+
+                <div
+                    class="mobile-controls"
+                >
 
                     <div class="mobile-row">
 
                         <button
                             class="control-btn"
-                            id="leftButton">
+                            id="leftButton"
+                        >
                             ←
                         </button>
 
-                        <button
-                            class="control-btn"
-                            id="rotateButton">
-                            ↻
-                        </button>
 
                         <button
                             class="control-btn"
-                            id="rightButton">
+                            id="rotateButton"
+                        >
+                            ↻
+                        </button>
+
+
+                        <button
+                            class="control-btn"
+                            id="rightButton"
+                        >
                             →
                         </button>
 
                     </div>
 
+
                     <div class="mobile-row">
 
                         <button
                             class="control-btn"
-                            id="downButton">
+                            id="downButton"
+                        >
                             ↓
                         </button>
 
+
                         <button
                             class="control-btn"
-                            id="dropButton">
+                            id="dropButton"
+                        >
                             ⬇
                         </button>
 
@@ -225,8 +310,84 @@
     </div>
 
 
+
+    <!-- =========================
+         AUDIO
+    ========================== -->
+
+
+    <!-- Background Music -->
+
+    <audio
+        id="bgMusic"
+        src="sounds/bg-music.mp3"
+        loop
+        preload="auto"
+    >
+    </audio>
+
+
+    <!-- Piece Movement -->
+
+    <audio
+        id="moveSound"
+        src="sounds/move.mp3"
+        preload="auto"
+    >
+    </audio>
+
+
+    <!-- Rotation -->
+
+    <audio
+        id="rotateSound"
+        src="sounds/rotate.mp3"
+        preload="auto"
+    >
+    </audio>
+
+
+    <!-- Line Clear -->
+
+    <audio
+        id="lineClearSound"
+        src="sounds/line-clear.mp3"
+        preload="auto"
+    >
+    </audio>
+
+
+    <!-- Hard Drop -->
+
+    <audio
+        id="hardDropSound"
+        src="sounds/hard-drop.mp3"
+        preload="auto"
+    >
+    </audio>
+
+
+    <!-- Game Over -->
+
+    <audio
+        id="gameOverSound"
+        src="sounds/game-over.mp3"
+        preload="auto"
+    >
+    </audio>
+
+
+
+    <!-- Tetris JavaScript -->
+
     <script src="tetris.js"></script>
 
 </body>
+
 </html>
-```
+
+
+
+</body>
+</html>
+
