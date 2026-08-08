@@ -2,23 +2,169 @@
 CANVAS
 ===================================================== */
 
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
+const canvas =
+document.getElementById("gameCanvas");
 
-const nextCanvas = document.getElementById("nextCanvas");
-const nextCtx = nextCanvas.getContext("2d");
+const ctx =
+canvas.getContext("2d");
+
+const nextCanvas =
+document.getElementById("nextCanvas");
+
+const nextCtx =
+nextCanvas.getContext("2d");
 
 const COLS = 10;
+
 const ROWS = 20;
+
 const BLOCK = 30;
+
+
+
 
 /* =====================================================
 AUDIO
 ===================================================== */
 
-const bgMusic = document.getElementById("bgMusic");
-const moveSound = document.getElementById("moveSound");
-const gameOverSound = document.getElementById("gameOverSound");
+const bgMusic =
+document.getElementById("bgMusic");
+
+const gameOverSound =
+document.getElementById("gameOverSound");
+
+const lineClearSound =
+document.getElementById("lineClearSound");
+
+const soundButton =
+document.getElementById("soundButton");
+
+let soundEnabled = true;
+
+/* Background volume */
+
+bgMusic.volume = 0.45;
+
+/* Game sound volume */
+
+gameOverSound.volume = 0.7;
+
+lineClearSound.volume = 0.65;
+
+
+
+
+/* =====================================================
+SOUND BUTTON
+===================================================== */
+
+function updateSoundButton() {
+
+if (soundEnabled) {
+
+    soundButton.textContent = "🔊";
+
+    soundButton.setAttribute(
+        "aria-label",
+        "Mute sound"
+    );
+
+} else {
+
+    soundButton.textContent = "🔇";
+
+    soundButton.setAttribute(
+        "aria-label",
+        "Turn sound on"
+    );
+
+}
+
+}
+
+soundButton.addEventListener(
+"click",
+() => {
+
+    soundEnabled =
+        !soundEnabled;
+
+
+    bgMusic.muted =
+        !soundEnabled;
+
+    gameOverSound.muted =
+        !soundEnabled;
+
+    lineClearSound.muted =
+        !soundEnabled;
+
+
+    updateSoundButton();
+
+
+    if (soundEnabled) {
+
+        bgMusic.play().catch(() => {});
+
+    }
+
+}
+
+);
+
+updateSoundButton();
+
+
+
+
+/* =====================================================
+START BACKGROUND MUSIC
+===================================================== */
+
+function startMusic() {
+
+if (!soundEnabled) {
+    return;
+}
+
+
+bgMusic
+    .play()
+    .catch(() => {
+
+        /*
+         * Mobile browsers may block
+         * autoplay until the user interacts.
+         */
+
+    });
+
+}
+
+window.addEventListener(
+"load",
+startMusic
+);
+
+document.addEventListener(
+"click",
+startMusic,
+{
+once: true
+}
+);
+
+document.addEventListener(
+"touchstart",
+startMusic,
+{
+once: true
+}
+);
+
+
+
 
 /* =====================================================
 TETRIS PIECES
@@ -28,60 +174,80 @@ const PIECES = [
 
 {
     name: "I",
+
     color: "#5bc0eb",
+
     shape: [
         [1, 1, 1, 1]
     ]
 },
 
+
 {
     name: "O",
+
     color: "#f7d154",
+
     shape: [
         [1, 1],
         [1, 1]
     ]
 },
 
+
 {
     name: "T",
+
     color: "#b07cff",
+
     shape: [
         [0, 1, 0],
         [1, 1, 1]
     ]
 },
 
+
 {
     name: "S",
+
     color: "#6edb8c",
+
     shape: [
         [0, 1, 1],
         [1, 1, 0]
     ]
 },
 
+
 {
     name: "Z",
+
     color: "#ef6b73",
+
     shape: [
         [1, 1, 0],
         [0, 1, 1]
     ]
 },
 
+
 {
     name: "J",
+
     color: "#6f8ff5",
+
     shape: [
         [1, 0, 0],
         [1, 1, 1]
     ]
 },
 
+
 {
     name: "L",
+
     color: "#f39a5a",
+
     shape: [
         [0, 0, 1],
         [1, 1, 1]
@@ -90,6 +256,9 @@ const PIECES = [
 
 ];
 
+
+
+
 /* =====================================================
 GAME STATE
 ===================================================== */
@@ -97,74 +266,29 @@ GAME STATE
 let board = [];
 
 let currentPiece = null;
+
 let nextPiece = null;
 
 let score = 0;
+
 let lines = 0;
+
 let level = 1;
 
 let dropCounter = 0;
+
 let dropInterval = 800;
 
 let lastTime = 0;
+
 let animationID = null;
 
 let gameRunning = false;
+
 let paused = false;
 
-/* =====================================================
-AUDIO HELPERS
-===================================================== */
 
-function playSound(sound) {
 
-if (!sound) {
-    return;
-}
-
-sound.currentTime = 0;
-
-sound.play().catch(() => {
-    // Browser may block audio until user interaction.
-});
-
-}
-
-function startMusic() {
-
-if (!bgMusic) {
-    return;
-}
-
-bgMusic.volume = 0.35;
-
-bgMusic.play().catch(() => {
-    // Music will start after the next user interaction.
-});
-
-}
-
-function pauseMusic() {
-
-if (!bgMusic) {
-    return;
-}
-
-bgMusic.pause();
-
-}
-
-function stopMusic() {
-
-if (!bgMusic) {
-    return;
-}
-
-bgMusic.pause();
-
-bgMusic.currentTime = 0;
-
-}
 
 /* =====================================================
 CREATE BOARD
@@ -173,11 +297,17 @@ CREATE BOARD
 function createBoard() {
 
 return Array.from(
-    { length: ROWS },
-    () => Array(COLS).fill(null)
+    {
+        length: ROWS
+    },
+    () =>
+        Array(COLS).fill(null)
 );
 
 }
+
+
+
 
 /* =====================================================
 RANDOM PIECE
@@ -188,20 +318,24 @@ function randomPiece() {
 const template =
     PIECES[
         Math.floor(
-            Math.random() * PIECES.length
+            Math.random() *
+            PIECES.length
         )
     ];
 
 
 return {
 
-    name: template.name,
+    name:
+        template.name,
 
-    color: template.color,
+    color:
+        template.color,
 
-    shape: template.shape.map(
-        row => [...row]
-    ),
+    shape:
+        template.shape.map(
+            row => [...row]
+        ),
 
     x: 0,
 
@@ -211,6 +345,9 @@ return {
 
 }
 
+
+
+
 /* =====================================================
 SPAWN PIECE
 ===================================================== */
@@ -218,7 +355,9 @@ SPAWN PIECE
 function spawnPiece() {
 
 currentPiece =
-    nextPiece || randomPiece();
+    nextPiece ||
+    randomPiece();
+
 
 nextPiece =
     randomPiece();
@@ -247,6 +386,9 @@ if (collision()) {
 
 }
 
+
+
+
 /* =====================================================
 COLLISION
 ===================================================== */
@@ -265,8 +407,12 @@ for (
         x++
     ) {
 
-        if (!currentPiece.shape[y][x]) {
+        if (
+            !currentPiece.shape[y][x]
+        ) {
+
             continue;
+
         }
 
 
@@ -301,9 +447,13 @@ for (
 
 }
 
+
 return false;
 
 }
+
+
+
 
 /* =====================================================
 MERGE PIECE
@@ -336,6 +486,87 @@ currentPiece.shape.forEach(
 
 }
 
+
+
+
+/* =====================================================
+LINE CLEAR POPUP
+===================================================== */
+
+function showLinePopup(
+cleared
+) {
+
+const popup =
+    document.getElementById(
+        "linePopup"
+    );
+
+const text =
+    document.getElementById(
+        "linePopupText"
+    );
+
+
+if (cleared === 1) {
+
+    text.textContent =
+        "NICE! ✨";
+
+}
+
+else if (cleared === 2) {
+
+    text.textContent =
+        "GREAT! 💖";
+
+}
+
+else if (cleared === 3) {
+
+    text.textContent =
+        "AMAZING! 🌟";
+
+}
+
+else if (cleared >= 4) {
+
+    text.textContent =
+        "TETRIS! 🎉";
+
+}
+
+
+popup.classList.remove("show");
+
+
+/*
+ * Force browser to restart
+ * the animation.
+ */
+
+void popup.offsetWidth;
+
+
+popup.classList.add("show");
+
+
+setTimeout(
+    () => {
+
+        popup.classList.remove(
+            "show"
+        );
+
+    },
+    1000
+);
+
+}
+
+
+
+
 /* =====================================================
 CLEAR LINES
 ===================================================== */
@@ -353,17 +584,26 @@ for (
 
     if (
         board[y].every(
-            cell => cell !== null
+            cell =>
+                cell !== null
         )
     ) {
 
-        board.splice(y, 1);
-
-        board.unshift(
-            Array(COLS).fill(null)
+        board.splice(
+            y,
+            1
         );
 
+
+        board.unshift(
+            Array(
+                COLS
+            ).fill(null)
+        );
+
+
         cleared++;
+
 
         y++;
 
@@ -375,28 +615,39 @@ for (
 if (cleared > 0) {
 
     const points = [
+
         0,
+
         100,
+
         300,
+
         500,
+
         800
+
     ];
 
 
     score +=
-        points[cleared] * level;
+        points[
+            cleared
+        ] * level;
 
 
     lines += cleared;
 
 
     level =
-        Math.floor(lines / 10) + 1;
+        Math.floor(
+            lines / 10
+        ) + 1;
 
 
     dropInterval =
         Math.max(
             100,
+
             800 -
             (level - 1) * 65
         );
@@ -405,91 +656,32 @@ if (cleared > 0) {
     updateUI();
 
 
-    showLineCongratulations(cleared);
+    /* Line sound */
+
+    if (soundEnabled) {
+
+        lineClearSound.currentTime =
+            0;
+
+        lineClearSound
+            .play()
+            .catch(() => {});
+
+    }
+
+
+    /* Congratulations popup */
+
+    showLinePopup(
+        cleared
+    );
 
 }
 
 }
 
-/* =====================================================
-LINE CLEAR CONGRATULATIONS
-===================================================== */
-
-function showLineCongratulations(cleared) {
-
-let message = "";
 
 
-if (cleared === 1) {
-
-    message = "Nice! ✨";
-
-}
-
-else if (cleared === 2) {
-
-    message = "Great! 💕";
-
-}
-
-else if (cleared === 3) {
-
-    message = "Amazing! 🌟";
-
-}
-
-else if (cleared === 4) {
-
-    message = "TETRIS! 🎉";
-
-}
-
-
-const popup =
-    document.createElement("div");
-
-
-popup.className =
-    "line-congrat-popup";
-
-
-popup.textContent =
-    message;
-
-
-document.body.appendChild(popup);
-
-
-setTimeout(
-    () => {
-
-        popup.classList.add("show");
-
-    },
-    10
-);
-
-
-setTimeout(
-    () => {
-
-        popup.classList.remove("show");
-
-    },
-    1200
-);
-
-
-setTimeout(
-    () => {
-
-        popup.remove();
-
-    },
-    1500
-);
-
-}
 
 /* =====================================================
 MOVE
@@ -507,21 +699,21 @@ if (
 }
 
 
-currentPiece.x += direction;
+currentPiece.x +=
+    direction;
 
 
 if (collision()) {
 
-    currentPiece.x -= direction;
+    currentPiece.x -=
+        direction;
 
-    return;
+}
 
 }
 
 
-playSound(moveSound);
 
-}
 
 /* =====================================================
 SOFT DROP
@@ -555,6 +747,9 @@ dropCounter = 0;
 
 }
 
+
+
+
 /* =====================================================
 HARD DROP
 ===================================================== */
@@ -571,7 +766,9 @@ if (
 }
 
 
-while (!collision()) {
+while (
+    !collision()
+) {
 
     currentPiece.y++;
 
@@ -584,6 +781,9 @@ currentPiece.y--;
 lockPiece();
 
 }
+
+
+
 
 /* =====================================================
 LOCK PIECE
@@ -600,6 +800,9 @@ spawnPiece();
 dropCounter = 0;
 
 }
+
+
+
 
 /* =====================================================
 ROTATE
@@ -626,7 +829,8 @@ const rotated =
         (_, index) =>
             oldShape
                 .map(
-                    row => row[index]
+                    row =>
+                        row[index]
                 )
                 .reverse()
     );
@@ -635,6 +839,10 @@ const rotated =
 currentPiece.shape =
     rotated;
 
+
+/*
+   Simple wall kick
+*/
 
 if (collision()) {
 
@@ -650,6 +858,7 @@ if (collision()) {
 
             currentPiece.x++;
 
+
             currentPiece.shape =
                 oldShape;
 
@@ -660,6 +869,9 @@ if (collision()) {
 }
 
 }
+
+
+
 
 /* =====================================================
 DRAW BLOCK
@@ -710,6 +922,9 @@ context.strokeRect(
 
 }
 
+
+
+
 /* =====================================================
 DRAW BOARD
 ===================================================== */
@@ -728,7 +943,9 @@ ctx.fillRect(
 );
 
 
-/* GRID */
+/*
+   Grid
+*/
 
 ctx.strokeStyle =
     "rgba(255,255,255,0.035)";
@@ -742,15 +959,18 @@ for (
 
     ctx.beginPath();
 
+
     ctx.moveTo(
         x * BLOCK,
         0
     );
 
+
     ctx.lineTo(
         x * BLOCK,
         canvas.height
     );
+
 
     ctx.stroke();
 
@@ -765,22 +985,27 @@ for (
 
     ctx.beginPath();
 
+
     ctx.moveTo(
         0,
         y * BLOCK
     );
+
 
     ctx.lineTo(
         canvas.width,
         y * BLOCK
     );
 
+
     ctx.stroke();
 
 }
 
 
-/* LOCKED BLOCKS */
+/*
+   Locked blocks
+*/
 
 board.forEach(
     (row, y) => {
@@ -791,11 +1016,17 @@ board.forEach(
                 if (color) {
 
                     drawBlock(
+
                         ctx,
+
                         x * BLOCK,
+
                         y * BLOCK,
+
                         BLOCK,
+
                         color
+
                     );
 
                 }
@@ -807,7 +1038,9 @@ board.forEach(
 );
 
 
-/* CURRENT PIECE */
+/*
+   Current piece
+*/
 
 if (currentPiece) {
 
@@ -817,31 +1050,32 @@ if (currentPiece) {
             row.forEach(
                 (value, x) => {
 
-                if (value) {
+                    if (value) {
 
-                    drawBlock(
+                        drawBlock(
 
-                        ctx,
+                            ctx,
 
-                        (
-                            currentPiece.x +
-                            x
-                        ) * BLOCK,
+                            (
+                                currentPiece.x +
+                                x
+                            ) * BLOCK,
 
-                        (
-                            currentPiece.y +
-                            y
-                        ) * BLOCK,
+                            (
+                                currentPiece.y +
+                                y
+                            ) * BLOCK,
 
-                        BLOCK,
+                            BLOCK,
 
-                        currentPiece.color
+                            currentPiece.color
 
-                    );
+                        );
+
+                    }
 
                 }
-
-            });
+            );
 
         }
     );
@@ -849,6 +1083,9 @@ if (currentPiece) {
 }
 
 }
+
+
+
 
 /* =====================================================
 DRAW NEXT PIECE
@@ -883,11 +1120,13 @@ const size = 25;
 
 
 const width =
-    shape[0].length * size;
+    shape[0].length *
+    size;
 
 
 const height =
-    shape.length * size;
+    shape.length *
+    size;
 
 
 const startX =
@@ -932,30 +1171,44 @@ shape.forEach(
 
 }
 
+
+
+
 /* =====================================================
 UPDATE UI
 ===================================================== */
 
 function updateUI() {
 
-document.getElementById("score")
-    .textContent = score;
+document.getElementById(
+    "score"
+).textContent =
+    score;
 
 
-document.getElementById("lines")
-    .textContent = lines;
+document.getElementById(
+    "lines"
+).textContent =
+    lines;
 
 
-document.getElementById("level")
-    .textContent = level;
+document.getElementById(
+    "level"
+).textContent =
+    level;
 
 }
+
+
+
 
 /* =====================================================
 GAME LOOP
 ===================================================== */
 
-function update(time = 0) {
+function update(
+time = 0
+) {
 
 if (!gameRunning) {
 
@@ -974,11 +1227,13 @@ lastTime =
 
 if (!paused) {
 
-    dropCounter += deltaTime;
+    dropCounter +=
+        deltaTime;
 
 
     if (
-        dropCounter > dropInterval
+        dropCounter >
+        dropInterval
     ) {
 
         softDrop();
@@ -992,9 +1247,14 @@ if (!paused) {
 
 
 animationID =
-    requestAnimationFrame(update);
+    requestAnimationFrame(
+        update
+    );
 
 }
+
+
+
 
 /* =====================================================
 START GAME
@@ -1011,7 +1271,6 @@ score = 0;
 lines = 0;
 
 level = 1;
-
 
 dropInterval = 800;
 
@@ -1039,9 +1298,6 @@ hideOverlay();
 spawnPiece();
 
 
-startMusic();
-
-
 cancelAnimationFrame(
     animationID
 );
@@ -1053,7 +1309,13 @@ lastTime =
 
 update();
 
+
+startMusic();
+
 }
+
+
+
 
 /* =====================================================
 PAUSE
@@ -1072,13 +1334,15 @@ if (!paused) {
 
     paused = true;
 
-    pauseMusic();
-
 
     showOverlay(
+
         "Paused",
+
         "Take a little break.",
+
         "Resume"
+
     );
 
 }
@@ -1091,6 +1355,9 @@ else {
 
 }
 
+
+
+
 /* =====================================================
 RESUME
 ===================================================== */
@@ -1099,10 +1366,8 @@ function resumeGame() {
 
 paused = false;
 
+
 hideOverlay();
-
-
-startMusic();
 
 
 document.getElementById(
@@ -1111,6 +1376,9 @@ document.getElementById(
     "⏸ Pause";
 
 }
+
+
+
 
 /* =====================================================
 RESTART
@@ -1128,9 +1396,13 @@ if (!gameRunning) {
 
 
 showOverlay(
+
     "Restart?",
+
     "Your current game will be lost.",
+
     "Yes, Restart"
+
 );
 
 
@@ -1139,10 +1411,10 @@ document.getElementById(
 ).style.display =
     "block";
 
-
-pauseMusic();
-
 }
+
+
+
 
 /* =====================================================
 GAME OVER
@@ -1152,22 +1424,45 @@ function gameOver() {
 
 gameRunning = false;
 
-paused = false;
+
+/*
+   Stop background music
+   when game ends.
+*/
+
+bgMusic.pause();
 
 
-stopMusic();
+/*
+   Game over sound
+*/
 
+if (soundEnabled) {
 
-playSound(gameOverSound);
+    gameOverSound.currentTime =
+        0;
+
+    gameOverSound
+        .play()
+        .catch(() => {});
+
+}
 
 
 showOverlay(
+
     "Game Over",
+
     `Score: ${score}`,
+
     "Play Again"
+
 );
 
 }
+
+
+
 
 /* =====================================================
 SHOW OVERLAY
@@ -1199,9 +1494,14 @@ document.getElementById(
 
 document.getElementById(
     "overlay"
-).classList.remove("hidden");
+).classList.remove(
+    "hidden"
+);
 
 }
+
+
+
 
 /* =====================================================
 HIDE OVERLAY
@@ -1211,7 +1511,9 @@ function hideOverlay() {
 
 document.getElementById(
     "overlay"
-).classList.add("hidden");
+).classList.add(
+    "hidden"
+);
 
 
 document.getElementById(
@@ -1220,6 +1522,9 @@ document.getElementById(
     "none";
 
 }
+
+
+
 
 /* =====================================================
 OVERLAY MAIN BUTTON
@@ -1237,7 +1542,9 @@ document.getElementById(
         ).textContent;
 
 
-    if (title === "Restart?") {
+    if (
+        title === "Restart?"
+    ) {
 
         startGame();
 
@@ -1246,7 +1553,9 @@ document.getElementById(
     }
 
 
-    if (title === "Paused") {
+    if (
+        title === "Paused"
+    ) {
 
         resumeGame();
 
@@ -1261,6 +1570,9 @@ document.getElementById(
 
 );
 
+
+
+
 /* =====================================================
 NO BUTTON
 ===================================================== */
@@ -1273,18 +1585,12 @@ document.getElementById(
 
     hideOverlay();
 
-
-    if (gameRunning) {
-
-        paused = false;
-
-        startMusic();
-
-    }
-
 }
 
 );
+
+
+
 
 /* =====================================================
 PAUSE BUTTON
@@ -1297,6 +1603,9 @@ document.getElementById(
 pauseGame
 );
 
+
+
+
 /* =====================================================
 RESTART BUTTON
 ===================================================== */
@@ -1307,6 +1616,9 @@ document.getElementById(
 "click",
 restartGame
 );
+
+
+
 
 /* =====================================================
 BACK TO ARCADE
@@ -1325,6 +1637,9 @@ document.getElementById(
 
 );
 
+
+
+
 /* =====================================================
 KEYBOARD
 ===================================================== */
@@ -1333,7 +1648,10 @@ document.addEventListener(
 "keydown",
 event => {
 
-    if (event.key === "ArrowLeft") {
+    if (
+        event.key ===
+        "ArrowLeft"
+    ) {
 
         event.preventDefault();
 
@@ -1341,7 +1659,10 @@ event => {
 
     }
 
-    else if (event.key === "ArrowRight") {
+    else if (
+        event.key ===
+        "ArrowRight"
+    ) {
 
         event.preventDefault();
 
@@ -1349,7 +1670,10 @@ event => {
 
     }
 
-    else if (event.key === "ArrowDown") {
+    else if (
+        event.key ===
+        "ArrowDown"
+    ) {
 
         event.preventDefault();
 
@@ -1357,7 +1681,10 @@ event => {
 
     }
 
-    else if (event.key === "ArrowUp") {
+    else if (
+        event.key ===
+        "ArrowUp"
+    ) {
 
         event.preventDefault();
 
@@ -1365,7 +1692,10 @@ event => {
 
     }
 
-    else if (event.code === "Space") {
+    else if (
+        event.code ===
+        "Space"
+    ) {
 
         event.preventDefault();
 
@@ -1374,7 +1704,8 @@ event => {
     }
 
     else if (
-        event.key.toLowerCase() === "p"
+        event.key.toLowerCase() ===
+        "p"
     ) {
 
         pauseGame();
@@ -1384,6 +1715,9 @@ event => {
 }
 
 );
+
+
+
 
 /* =====================================================
 MOBILE CONTROLS
@@ -1424,6 +1758,9 @@ document.getElementById(
 hardDrop
 );
 
+
+
+
 /* =====================================================
 INITIAL SCREEN
 ===================================================== */
@@ -1434,7 +1771,11 @@ createBoard();
 draw();
 
 showOverlay(
+
 "Tetris",
+
 "Ready to play?",
+
 "Start Game"
+
 );
