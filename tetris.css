@@ -1,3 +1,4 @@
+```css
 /* =====================================================
    RESET
 ===================================================== */
@@ -10,7 +11,7 @@
 
 
 /* =====================================================
-   FULL PAGE BACKGROUND
+   HTML / BODY
 ===================================================== */
 
 html,
@@ -22,47 +23,68 @@ body {
 }
 
 
+/* =====================================================
+   ANIMATED BACKGROUND
+===================================================== */
+
 body {
     min-height: 100vh;
 
     font-family: 'Poppins', sans-serif;
 
     /*
-       FULL GRADIENT BACKGROUND
+       Soft moving pink / purple / blue background
     */
 
     background:
         radial-gradient(
-            circle at 10% 10%,
-            rgba(255, 214, 231, 0.75),
+            circle at 15% 20%,
+            rgba(255, 180, 215, 0.75),
             transparent 35%
         ),
 
         radial-gradient(
-            circle at 90% 20%,
-            rgba(220, 205, 255, 0.7),
+            circle at 80% 25%,
+            rgba(200, 170, 255, 0.75),
             transparent 35%
         ),
 
         radial-gradient(
-            circle at 50% 100%,
-            rgba(190, 225, 255, 0.7),
+            circle at 60% 85%,
+            rgba(170, 220, 255, 0.75),
             transparent 40%
         ),
 
         linear-gradient(
-            135deg,
-            #fff0f7 0%,
-            #f6efff 45%,
-            #edf7ff 100%
+            120deg,
+            #fff0f7,
+            #f2e8ff,
+            #e5f4ff,
+            #fff0f7
         );
 
+    /*
+       Larger background sizes make the
+       movement smoother.
+    */
+
+    background-size:
+        180% 180%,
+        180% 180%,
+        180% 180%,
+        400% 400%;
+
+    animation:
+        gradientMove 24s ease-in-out infinite;
+
     background-attachment: fixed;
+
     background-repeat: no-repeat;
-    background-size: cover;
 
     display: flex;
+
     justify-content: center;
+
     align-items: center;
 
     color: #333;
@@ -72,16 +94,77 @@ body {
 
 
 /* =====================================================
+   BACKGROUND ANIMATION
+===================================================== */
+
+@keyframes gradientMove {
+
+    0% {
+        background-position:
+            0% 20%,
+            100% 20%,
+            50% 100%,
+            0% 50%;
+    }
+
+    20% {
+        background-position:
+            40% 0%,
+            70% 60%,
+            100% 40%,
+            30% 70%;
+    }
+
+    40% {
+        background-position:
+            100% 30%,
+            20% 100%,
+            40% 0%,
+            70% 20%;
+    }
+
+    60% {
+        background-position:
+            70% 100%,
+            0% 40%,
+            100% 70%,
+            100% 80%;
+    }
+
+    80% {
+        background-position:
+            20% 70%,
+            100% 0%,
+            0% 30%,
+            30% 0%;
+    }
+
+    100% {
+        background-position:
+            0% 20%,
+            100% 20%,
+            50% 100%,
+            0% 50%;
+    }
+
+}
+
+
+/* =====================================================
    GAME WRAPPER
 ===================================================== */
 
 .game-wrapper {
     width: 100%;
+
     max-width: 950px;
+
     min-height: 100vh;
 
     display: flex;
+
     justify-content: center;
+
     align-items: center;
 
     padding: 20px;
@@ -90,17 +173,23 @@ body {
 }
 
 
+/* =====================================================
+   GAME CONTAINER
+===================================================== */
+
 .game-container {
     display: flex;
 
-    gap: 25px;
-
     align-items: center;
+
+    justify-content: center;
+
+    gap: 25px;
 }
 
 
 /* =====================================================
-   TETRIS BOARD
+   TETRIS BOARD CONTAINER
 ===================================================== */
 
 .board-container {
@@ -110,20 +199,28 @@ body {
 
     padding: 8px;
 
-    border-radius: 12px;
+    border-radius: 14px;
 
     box-shadow:
-        0 15px 40px rgba(0, 0, 0, 0.18),
-        0 0 0 3px rgba(255, 255, 255, 0.7);
+        0 15px 40px rgba(0, 0, 0, 0.20),
+        0 0 0 3px rgba(255, 255, 255, 0.65);
 }
 
 
-canvas {
+/* =====================================================
+   MAIN CANVAS
+===================================================== */
+
+#gameCanvas {
     display: block;
+
+    width: 300px;
+
+    height: 600px;
 
     background: #111;
 
-    border-radius: 6px;
+    border-radius: 7px;
 }
 
 
@@ -135,6 +232,7 @@ canvas {
     width: 210px;
 
     display: flex;
+
     flex-direction: column;
 
     gap: 15px;
@@ -150,9 +248,14 @@ canvas {
 
     font-size: 34px;
 
+    font-weight: 700;
+
     text-align: center;
 
     color: #444;
+
+    text-shadow:
+        0 2px 10px rgba(255, 255, 255, 0.6);
 }
 
 
@@ -162,17 +265,19 @@ canvas {
 
 
 /* =====================================================
-   INFORMATION CARDS
+   GLASS INFORMATION CARDS
 ===================================================== */
 
 .info-card {
-    background: rgba(255, 255, 255, 0.55);
+    background:
+        rgba(255, 255, 255, 0.55);
 
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(14px);
 
-    -webkit-backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(14px);
 
-    border: 1px solid rgba(255, 255, 255, 0.65);
+    border:
+        1px solid rgba(255, 255, 255, 0.65);
 
     border-radius: 18px;
 
@@ -185,14 +290,26 @@ canvas {
 }
 
 
+/* =====================================================
+   INFO TITLE
+===================================================== */
+
 .info-title {
-    font-size: 13px;
+    font-size: 12px;
+
+    font-weight: 600;
+
+    letter-spacing: 1px;
 
     color: #888;
 
-    margin-bottom: 3px;
+    margin-bottom: 4px;
 }
 
+
+/* =====================================================
+   INFO VALUE
+===================================================== */
 
 .info-value {
     font-size: 25px;
@@ -208,7 +325,11 @@ canvas {
 ===================================================== */
 
 .next-title {
-    font-size: 14px;
+    font-size: 13px;
+
+    font-weight: 600;
+
+    letter-spacing: 1px;
 
     color: #777;
 
@@ -217,20 +338,23 @@ canvas {
 
 
 #nextCanvas {
+    display: block;
+
     width: 120px;
 
     height: 120px;
 
     margin: auto;
 
-    background: rgba(255, 255, 255, 0.55);
+    background:
+        rgba(255, 255, 255, 0.55);
 
     border-radius: 10px;
 }
 
 
 /* =====================================================
-   SIDE BUTTONS
+   GENERAL BUTTON
 ===================================================== */
 
 .button {
@@ -238,7 +362,7 @@ canvas {
 
     border: none;
 
-    padding: 12px;
+    padding: 12px 14px;
 
     border-radius: 14px;
 
@@ -251,8 +375,9 @@ canvas {
     cursor: pointer;
 
     transition:
-        transform 0.2s,
-        box-shadow 0.2s;
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
 }
 
 
@@ -260,7 +385,7 @@ canvas {
     transform: translateY(-2px);
 
     box-shadow:
-        0 8px 18px rgba(0, 0, 0, 0.1);
+        0 8px 18px rgba(0, 0, 0, 0.12);
 }
 
 
@@ -270,24 +395,44 @@ canvas {
 
 
 /* =====================================================
-   PAUSE
+   PAUSE BUTTON
 ===================================================== */
 
 .pause-btn {
-    background: rgba(243, 199, 107, 0.9);
+    background:
+        rgba(243, 199, 107, 0.92);
 
     color: white;
+
+    box-shadow:
+        0 5px 15px rgba(243, 199, 107, 0.20);
+}
+
+
+.pause-btn:hover {
+    background:
+        rgba(235, 183, 85, 0.98);
 }
 
 
 /* =====================================================
-   RESTART
+   RESTART BUTTON
 ===================================================== */
 
 .restart-btn {
-    background: rgba(217, 108, 155, 0.9);
+    background:
+        rgba(217, 108, 155, 0.92);
 
     color: white;
+
+    box-shadow:
+        0 5px 15px rgba(217, 108, 155, 0.20);
+}
+
+
+.restart-btn:hover {
+    background:
+        rgba(207, 94, 143, 0.98);
 }
 
 
@@ -296,16 +441,22 @@ canvas {
 ===================================================== */
 
 .back-btn {
-    background: rgba(255, 255, 255, 0.6);
-
+    display: block !important;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.75);
     color: #555;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
 
-    border: 1px solid rgba(255, 255, 255, 0.7);
+
+.back-btn:hover {
+    background:
+        rgba(255, 255, 255, 0.90);
 }
 
 
 /* =====================================================
-   OVERLAY
+   START / PAUSE / GAME OVER OVERLAY
 ===================================================== */
 
 .overlay {
@@ -313,18 +464,19 @@ canvas {
 
     inset: 8px;
 
-    border-radius: 6px;
+    border-radius: 7px;
 
     /*
-       GRADIENT OVERLAY
+       Semi-transparent animated-looking
+       gradient overlay
     */
 
     background:
         linear-gradient(
             135deg,
-            rgba(255, 235, 244, 0.96),
-            rgba(239, 230, 255, 0.96),
-            rgba(228, 243, 255, 0.96)
+            rgba(255, 230, 242, 0.96),
+            rgba(238, 226, 255, 0.96),
+            rgba(225, 242, 255, 0.96)
         );
 
     display: flex;
@@ -337,9 +489,9 @@ canvas {
 
     z-index: 10;
 
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(8px);
 
-    -webkit-backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 
@@ -347,6 +499,10 @@ canvas {
     display: none;
 }
 
+
+/* =====================================================
+   OVERLAY BOX
+===================================================== */
 
 .overlay-box {
     width: 85%;
@@ -357,12 +513,18 @@ canvas {
 
     border-radius: 22px;
 
-    background: rgba(255, 255, 255, 0.35);
+    background:
+        rgba(255, 255, 255, 0.40);
 
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    border:
+        1px solid rgba(255, 255, 255, 0.65);
 
     box-shadow:
-        0 12px 35px rgba(0, 0, 0, 0.08);
+        0 12px 35px rgba(0, 0, 0, 0.10);
+
+    backdrop-filter: blur(10px);
+
+    -webkit-backdrop-filter: blur(10px);
 }
 
 
@@ -375,11 +537,20 @@ canvas {
 
     font-size: 48px;
 
+    font-weight: 700;
+
     color: #d96c9b;
 
     margin-bottom: 5px;
+
+    text-shadow:
+        0 3px 10px rgba(217, 108, 155, 0.15);
 }
 
+
+/* =====================================================
+   OVERLAY SUBTITLE
+===================================================== */
 
 .overlay-subtitle {
     font-size: 14px;
@@ -391,7 +562,7 @@ canvas {
 
 
 /* =====================================================
-   OVERLAY BUTTONS
+   OVERLAY BUTTON
 ===================================================== */
 
 .overlay-button {
@@ -416,8 +587,8 @@ canvas {
     cursor: pointer;
 
     transition:
-        transform 0.2s,
-        box-shadow 0.2s;
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 
@@ -425,7 +596,7 @@ canvas {
     transform: translateY(-2px);
 
     box-shadow:
-        0 8px 18px rgba(0, 0, 0, 0.1);
+        0 8px 18px rgba(0, 0, 0, 0.10);
 }
 
 
@@ -435,26 +606,54 @@ canvas {
 
 
 /* =====================================================
-   START BUTTON
+   START / RESUME / PLAY AGAIN
 ===================================================== */
 
 .start-button {
-    background: #d96c9b;
+    background:
+        linear-gradient(
+            135deg,
+            #d96c9b,
+            #b879d6
+        );
 
     color: white;
+
+    box-shadow:
+        0 7px 20px rgba(217, 108, 155, 0.25);
+}
+
+
+.start-button:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #cf5f91,
+            #aa69ca
+        );
 }
 
 
 /* =====================================================
-   CANCEL BUTTON
+   CANCEL / NO
 ===================================================== */
 
 .cancel-button {
-    background: rgba(255, 255, 255, 0.7);
+    background:
+        rgba(255, 255, 255, 0.72);
 
     color: #555;
 
     display: none;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.75);
+}
+
+
+.cancel-button:hover {
+    background:
+        rgba(255, 255, 255, 0.95);
 }
 
 
@@ -487,9 +686,12 @@ canvas {
 
     border-radius: 12px;
 
-    background: rgba(255, 255, 255, 0.7);
+    background:
+        rgba(255, 255, 255, 0.72);
 
     font-size: 20px;
+
+    color: #555;
 
     cursor: pointer;
 
@@ -497,7 +699,14 @@ canvas {
         0 4px 10px rgba(0, 0, 0, 0.08);
 
     transition:
-        transform 0.15s;
+        transform 0.15s ease,
+        background 0.15s ease;
+}
+
+
+.control-btn:hover {
+    background:
+        rgba(255, 255, 255, 0.90);
 }
 
 
@@ -566,5 +775,30 @@ canvas {
     .back-btn {
         grid-column: 1 / -1;
     }
+}
+
+
+/* =====================================================
+   SMALL MOBILE SCREENS
+===================================================== */
+
+@media (max-width: 380px) {
+
+    #gameCanvas {
+        width: 270px;
+
+        height: 540px;
+    }
+
+
+    .board-container {
+        padding: 6px;
+    }
+
+
+    .side-panel {
+        width: 100%;
+    }
 
 }
+
