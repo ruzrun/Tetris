@@ -114,202 +114,183 @@
 
 
 
-            <!-- =========================
-                 SIDE PANEL
-            ========================== -->
+       ```html
+<!-- =========================
+     SIDE PANEL
+========================== -->
 
-            <div class="side-panel">
+<div class="side-panel">
 
+    <!-- TITLE -->
 
-                <!-- TITLE -->
+    <div class="logo">
+        Raa's
+        <span>Tetris</span>
+        🎮
+    </div>
 
-                <div class="logo">
 
-                    Raa's
-                    <span>Tetris</span>
-                    🎮
+    <!-- SCORE -->
 
-                </div>
+    <div class="info-card">
 
+        <div class="info-title">
+            SCORE
+        </div>
 
-
-                <!-- SCORE -->
-
-                <div class="info-card">
-
-                    <div class="info-title">
-                        SCORE
-                    </div>
-
-                    <div
-                        class="info-value"
-                        id="score"
-                    >
-                        0
-                    </div>
-
-                </div>
-
-
-
-                <!-- LINES -->
-
-                <div class="info-card">
-
-                    <div class="info-title">
-                        LINES
-                    </div>
-
-                    <div
-                        class="info-value"
-                        id="lines"
-                    >
-                        0
-                    </div>
-
-                </div>
-
-
-
-                <!-- LEVEL -->
-
-                <div class="info-card">
-
-                    <div class="info-title">
-                        LEVEL
-                    </div>
-
-                    <div
-                        class="info-value"
-                        id="level"
-                    >
-                        1
-                    </div>
-
-                </div>
-
-
-
-                <!-- NEXT PIECE -->
-
-                <div
-                    class="info-card next-card"
-                >
-
-                    <div class="next-title">
-                        NEXT
-                    </div>
-
-                    <canvas
-                        id="nextCanvas"
-                        width="120"
-                        height="120"
-                    >
-                    </canvas>
-
-                </div>
-
-
-
-                <!-- PAUSE -->
-
-                <button
-                    class="button pause-btn"
-                    id="pauseButton"
-                >
-                    ⏸ Pause
-                </button>
-
-
-
-                <!-- RESTART -->
-
-                <button
-                    class="button restart-btn"
-                    id="restartButton"
-                >
-                    ↻ Restart
-                </button>
-
-
-
-                <!-- =========================
-                     BACK TO ARCADE
-                ========================== -->
-
-                <button
-                    class="button back-btn"
-                    id="backButton"
-                >
-                    ← Back to Arcade
-                </button>
-
-
-
-                <!-- =========================
-                     MOBILE CONTROLS
-                ========================== -->
-
-                <div
-                    class="mobile-controls"
-                >
-
-                    <div class="mobile-row">
-
-                        <button
-                            class="control-btn"
-                            id="leftButton"
-                        >
-                            ←
-                        </button>
-
-
-                        <button
-                            class="control-btn"
-                            id="rotateButton"
-                        >
-                            ↻
-                        </button>
-
-
-                        <button
-                            class="control-btn"
-                            id="rightButton"
-                        >
-                            →
-                        </button>
-
-                    </div>
-
-
-                    <div class="mobile-row">
-
-                        <button
-                            class="control-btn"
-                            id="downButton"
-                        >
-                            ↓
-                        </button>
-
-
-                        <button
-                            class="control-btn"
-                            id="dropButton"
-                        >
-                            ⬇
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
+        <div
+            class="info-value"
+            id="score"
+        >
+            0
         </div>
 
     </div>
 
 
+    <!-- LINES -->
+
+    <div class="info-card">
+
+        <div class="info-title">
+            LINES
+        </div>
+
+        <div
+            class="info-value"
+            id="lines"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <!-- LEVEL -->
+
+    <div class="info-card">
+
+        <div class="info-title">
+            LEVEL
+        </div>
+
+        <div
+            class="info-value"
+            id="level"
+        >
+            1
+        </div>
+
+    </div>
+
+
+    <!-- NEXT PIECE -->
+
+    <div class="info-card next-card">
+
+        <div class="next-title">
+            NEXT
+        </div>
+
+        <canvas
+            id="nextCanvas"
+            width="120"
+            height="120"
+        ></canvas>
+
+    </div>
+
+
+    <!-- PAUSE -->
+
+    <button
+        type="button"
+        class="button pause-btn"
+        id="pauseButton"
+    >
+        ⏸ Pause
+    </button>
+
+
+    <!-- RESTART -->
+
+    <button
+        type="button"
+        class="button restart-btn"
+        id="restartButton"
+    >
+        ↻ Restart
+    </button>
+
+
+    <!-- BACK TO ARCADE -->
+
+    <button
+        type="button"
+        class="button back-btn"
+        id="backButton"
+    >
+        ← Back to Arcade
+    </button>
+
+
+    <!-- MOBILE CONTROLS -->
+
+    <div class="mobile-controls">
+
+        <div class="mobile-row">
+
+            <button
+                type="button"
+                class="control-btn"
+                id="leftButton"
+            >
+                ←
+            </button>
+
+            <button
+                type="button"
+                class="control-btn"
+                id="rotateButton"
+            >
+                ↻
+            </button>
+
+            <button
+                type="button"
+                class="control-btn"
+                id="rightButton"
+            >
+                →
+            </button>
+
+        </div>
+
+
+        <div class="mobile-row">
+
+            <button
+                type="button"
+                class="control-btn"
+                id="downButton"
+            >
+                ↓
+            </button>
+
+            <button
+                type="button"
+                class="control-btn"
+                id="dropButton"
+            >
+                ⬇
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+```
 
     <!-- =========================
          AUDIO
