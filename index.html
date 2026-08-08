@@ -24,7 +24,9 @@
 <title>Raa's Tetris 🎮</title>
 
 
-<!-- Google Fonts -->
+<!-- =================================================
+     GOOGLE FONTS
+================================================== -->
 
 <link
     rel="preconnect"
@@ -43,7 +45,9 @@
 >
 
 
-<!-- Tetris CSS -->
+<!-- =================================================
+     CSS
+================================================== -->
 
 <link
     rel="stylesheet"
@@ -69,12 +73,27 @@
 
 
 <!-- =================================================
+     SOUND BUTTON
+================================================== -->
+
+<button
+    type="button"
+    class="sound-fixed"
+    id="soundButton"
+    aria-label="Mute sound"
+>
+    🔊
+</button>
+
+
+
+<!-- =================================================
      BACKGROUND MUSIC
 ================================================== -->
 
 <audio
     id="bgMusic"
-    src="audio/game.mp3"
+    src="audio.mp3"
     autoplay
     loop
     preload="auto"
@@ -83,7 +102,31 @@
 
 
 <!-- =================================================
-     GAME
+     GAME OVER SOUND
+================================================== -->
+
+<audio
+    id="gameOverSound"
+    src="gameover.mp3"
+    preload="auto"
+></audio>
+
+
+
+<!-- =================================================
+     LINE CLEAR SOUND
+================================================== -->
+
+<audio
+    id="lineClearSound"
+    src="line-clear.mp3"
+    preload="auto"
+></audio>
+
+
+
+<!-- =================================================
+     GAME WRAPPER
 ================================================== -->
 
 <div class="game-wrapper">
@@ -105,7 +148,7 @@
 
 
             <!-- =====================================
-                 OVERLAY
+                 GAME OVER / START / PAUSE OVERLAY
             ====================================== -->
 
             <div
@@ -114,6 +157,7 @@
             >
 
                 <div class="overlay-box">
+
 
                     <div
                         class="overlay-title"
@@ -152,6 +196,23 @@
 
             </div>
 
+
+            <!-- =====================================
+                 LINE CLEAR POPUP
+            ====================================== -->
+
+            <div
+                class="line-popup"
+                id="linePopup"
+            >
+                <div
+                    class="line-popup-text"
+                    id="linePopupText"
+                >
+                    NICE!
+                </div>
+            </div>
+
         </div>
 
 
@@ -163,9 +224,7 @@
         <div class="side-panel">
 
 
-            <!-- =====================================
-                 LOGO
-            ====================================== -->
+            <!-- LOGO -->
 
             <div class="logo">
 
@@ -179,9 +238,7 @@
 
 
 
-            <!-- =====================================
-                 SCORE
-            ====================================== -->
+            <!-- SCORE -->
 
             <div class="info-card">
 
@@ -200,9 +257,7 @@
 
 
 
-            <!-- =====================================
-                 LINES
-            ====================================== -->
+            <!-- LINES -->
 
             <div class="info-card">
 
@@ -221,9 +276,7 @@
 
 
 
-            <!-- =====================================
-                 LEVEL
-            ====================================== -->
+            <!-- LEVEL -->
 
             <div class="info-card">
 
@@ -242,9 +295,7 @@
 
 
 
-            <!-- =====================================
-                 NEXT PIECE
-            ====================================== -->
+            <!-- NEXT PIECE -->
 
             <div class="info-card next-card">
 
@@ -262,9 +313,7 @@
 
 
 
-            <!-- =====================================
-                 PAUSE
-            ====================================== -->
+            <!-- PAUSE -->
 
             <button
                 type="button"
@@ -276,9 +325,7 @@
 
 
 
-            <!-- =====================================
-                 RESTART
-            ====================================== -->
+            <!-- RESTART -->
 
             <button
                 type="button"
@@ -288,10 +335,10 @@
                 ↻ Restart
             </button>
 
-
         </div>
 
     </div>
+
 
 
     <!-- =================================================
@@ -355,66 +402,15 @@
 
     </div>
 
-
 </div>
 
 
 
 <!-- =================================================
-     TETRIS JAVASCRIPT
+     JAVASCRIPT
 ================================================== -->
 
 <script src="tetris.js"></script>
-
-
-<!-- =================================================
-     AUTOPLAY FALLBACK
-     
-     Browsers may block autoplay.
-     If the user taps the page, music starts.
-================================================== -->
-
-<script>
-
-    const bgMusic =
-        document.getElementById("bgMusic");
-
-
-    bgMusic.volume = 0.45;
-
-
-    function startMusic() {
-
-        bgMusic.play().catch(() => {
-
-            // Browser blocked autoplay.
-            // It will try again after user interaction.
-
-        });
-
-    }
-
-
-    window.addEventListener(
-        "load",
-        startMusic
-    );
-
-
-    document.addEventListener(
-        "click",
-        startMusic,
-        { once: true }
-    );
-
-
-    document.addEventListener(
-        "touchstart",
-        startMusic,
-        { once: true }
-    );
-
-</script>
 
 </body>
 
