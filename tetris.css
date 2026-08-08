@@ -1086,3 +1086,14 @@ VERY SMALL PHONES
 }
 
 }
+
+
+html,
+body,
+button {
+    touch-action: manipulation;
+}
+
+button {
+    -webkit-tap-highlight-color: transparent;
+}
