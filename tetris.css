@@ -1,3 +1,6 @@
+/* =====================================================
+   RESET
+===================================================== */
 
 * {
     box-sizing: border-box;
@@ -5,18 +8,58 @@
     padding: 0;
 }
 
+
+/* =====================================================
+   FULL PAGE BACKGROUND
+===================================================== */
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
 body {
     min-height: 100vh;
 
     font-family: 'Poppins', sans-serif;
 
+    /*
+       FULL GRADIENT BACKGROUND
+    */
+
     background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(255, 214, 231, 0.75),
+            transparent 35%
+        ),
+
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(220, 205, 255, 0.7),
+            transparent 35%
+        ),
+
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(190, 225, 255, 0.7),
+            transparent 40%
+        ),
+
         linear-gradient(
             135deg,
-            #fff1f7 0%,
-            #f4edff 45%,
-            #e9f5ff 100%
+            #fff0f7 0%,
+            #f6efff 45%,
+            #edf7ff 100%
         );
+
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
 
     display: flex;
     justify-content: center;
@@ -26,9 +69,11 @@ body {
 
     overflow: hidden;
 }
-/* =========================
+
+
+/* =====================================================
    GAME WRAPPER
-========================= */
+===================================================== */
 
 .game-wrapper {
     width: 100%;
@@ -40,24 +85,29 @@ body {
     align-items: center;
 
     padding: 20px;
+
+    background: transparent;
 }
 
 
 .game-container {
     display: flex;
+
     gap: 25px;
+
     align-items: center;
 }
 
 
-/* =========================
+/* =====================================================
    TETRIS BOARD
-========================= */
+===================================================== */
 
 .board-container {
     position: relative;
 
     background: #222;
+
     padding: 8px;
 
     border-radius: 12px;
@@ -77,9 +127,9 @@ canvas {
 }
 
 
-/* =========================
+/* =====================================================
    SIDE PANEL
-========================= */
+===================================================== */
 
 .side-panel {
     width: 210px;
@@ -90,6 +140,10 @@ canvas {
     gap: 15px;
 }
 
+
+/* =====================================================
+   LOGO
+===================================================== */
 
 .logo {
     font-family: 'Dancing Script', cursive;
@@ -107,14 +161,18 @@ canvas {
 }
 
 
-/* =========================
-   SCORE CARDS
-========================= */
+/* =====================================================
+   INFORMATION CARDS
+===================================================== */
 
 .info-card {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.55);
 
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
+
+    -webkit-backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255, 255, 255, 0.65);
 
     border-radius: 18px;
 
@@ -145,9 +203,9 @@ canvas {
 }
 
 
-/* =========================
+/* =====================================================
    NEXT PIECE
-========================= */
+===================================================== */
 
 .next-title {
     font-size: 14px;
@@ -160,19 +218,20 @@ canvas {
 
 #nextCanvas {
     width: 120px;
+
     height: 120px;
 
     margin: auto;
 
-    background: #f8f8f8;
+    background: rgba(255, 255, 255, 0.55);
 
     border-radius: 10px;
 }
 
 
-/* =========================
+/* =====================================================
    SIDE BUTTONS
-========================= */
+===================================================== */
 
 .button {
     width: 100%;
@@ -199,6 +258,9 @@ canvas {
 
 .button:hover {
     transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -207,27 +269,44 @@ canvas {
 }
 
 
+/* =====================================================
+   PAUSE
+===================================================== */
+
 .pause-btn {
-    background: #f3c76b;
+    background: rgba(243, 199, 107, 0.9);
+
     color: white;
 }
 
+
+/* =====================================================
+   RESTART
+===================================================== */
 
 .restart-btn {
-    background: #d96c9b;
+    background: rgba(217, 108, 155, 0.9);
+
     color: white;
 }
 
 
+/* =====================================================
+   BACK TO ARCADE
+===================================================== */
+
 .back-btn {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.6);
+
     color: #555;
+
+    border: 1px solid rgba(255, 255, 255, 0.7);
 }
 
 
-/* =========================
-   GAME OVERLAY
-========================= */
+/* =====================================================
+   OVERLAY
+===================================================== */
 
 .overlay {
     position: absolute;
@@ -236,16 +315,31 @@ canvas {
 
     border-radius: 6px;
 
-    background: rgba(255, 255, 255, 0.95);
+    /*
+       GRADIENT OVERLAY
+    */
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 235, 244, 0.96),
+            rgba(239, 230, 255, 0.96),
+            rgba(228, 243, 255, 0.96)
+        );
 
     display: flex;
 
     justify-content: center;
+
     align-items: center;
 
     text-align: center;
 
     z-index: 10;
+
+    backdrop-filter: blur(5px);
+
+    -webkit-backdrop-filter: blur(5px);
 }
 
 
@@ -256,9 +350,25 @@ canvas {
 
 .overlay-box {
     width: 85%;
+
     max-width: 300px;
+
+    padding: 25px;
+
+    border-radius: 22px;
+
+    background: rgba(255, 255, 255, 0.35);
+
+    border: 1px solid rgba(255, 255, 255, 0.6);
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.08);
 }
 
+
+/* =====================================================
+   OVERLAY TITLE
+===================================================== */
 
 .overlay-title {
     font-family: 'Dancing Script', cursive;
@@ -274,15 +384,15 @@ canvas {
 .overlay-subtitle {
     font-size: 14px;
 
-    color: #888;
+    color: #777;
 
     margin-bottom: 25px;
 }
 
 
-/* =========================
+/* =====================================================
    OVERLAY BUTTONS
-========================= */
+===================================================== */
 
 .overlay-button {
     display: block;
@@ -305,32 +415,52 @@ canvas {
 
     cursor: pointer;
 
-    transition: transform 0.2s;
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
 }
 
 
 .overlay-button:hover {
     transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.1);
 }
 
 
+.overlay-button:active {
+    transform: scale(0.97);
+}
+
+
+/* =====================================================
+   START BUTTON
+===================================================== */
+
 .start-button {
     background: #d96c9b;
+
     color: white;
 }
 
 
+/* =====================================================
+   CANCEL BUTTON
+===================================================== */
+
 .cancel-button {
-    background: #eee;
+    background: rgba(255, 255, 255, 0.7);
+
     color: #555;
 
     display: none;
 }
 
 
-/* =========================
+/* =====================================================
    MOBILE CONTROLS
-========================= */
+===================================================== */
 
 .mobile-controls {
     display: none;
@@ -350,13 +480,14 @@ canvas {
 
 .control-btn {
     width: 52px;
+
     height: 42px;
 
     border: none;
 
     border-radius: 12px;
 
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.7);
 
     font-size: 20px;
 
@@ -364,6 +495,9 @@ canvas {
 
     box-shadow:
         0 4px 10px rgba(0, 0, 0, 0.08);
+
+    transition:
+        transform 0.15s;
 }
 
 
@@ -372,25 +506,29 @@ canvas {
 }
 
 
-/* =========================
+/* =====================================================
    MOBILE
-========================= */
+===================================================== */
 
 @media (max-width: 700px) {
 
     body {
         overflow-y: auto;
+
         align-items: flex-start;
     }
 
 
     .game-wrapper {
         padding: 12px;
+
+        min-height: 100vh;
     }
 
 
     .game-container {
         flex-direction: column;
+
         gap: 12px;
     }
 
@@ -430,4 +568,3 @@ canvas {
     }
 
 }
-```
