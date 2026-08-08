@@ -1,4 +1,4 @@
-```css
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -7,24 +7,25 @@
 
 body {
     min-height: 100vh;
+
     font-family: 'Poppins', sans-serif;
 
-    background: linear-gradient(
-        135deg,
-        #fff0f5,
-        #f3e8ff,
-        #e8f4ff
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #fff1f7 0%,
+            #f4edff 45%,
+            #e9f5ff 100%
+        );
 
     display: flex;
     justify-content: center;
     align-items: center;
 
     color: #333;
+
     overflow: hidden;
 }
-
-
 /* =========================
    GAME WRAPPER
 ========================= */
