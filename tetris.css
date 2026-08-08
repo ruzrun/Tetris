@@ -1,4 +1,3 @@
-
 /* =====================================================
    RESET
 ===================================================== */
@@ -23,18 +22,11 @@ body {
 }
 
 
-/* =====================================================
-   ANIMATED BACKGROUND
-===================================================== */
-
 body {
     min-height: 100vh;
+    min-height: 100svh;
 
     font-family: 'Poppins', sans-serif;
-
-    /*
-       Soft moving pink / purple / blue background
-    */
 
     background:
         radial-gradient(
@@ -42,19 +34,16 @@ body {
             rgba(255, 180, 215, 0.75),
             transparent 35%
         ),
-
         radial-gradient(
             circle at 80% 25%,
             rgba(200, 170, 255, 0.75),
             transparent 35%
         ),
-
         radial-gradient(
             circle at 60% 85%,
             rgba(170, 220, 255, 0.75),
             transparent 40%
         ),
-
         linear-gradient(
             120deg,
             #fff0f7,
@@ -62,11 +51,6 @@ body {
             #e5f4ff,
             #fff0f7
         );
-
-    /*
-       Larger background sizes make the
-       movement smoother.
-    */
 
     background-size:
         180% 180%,
@@ -78,23 +62,16 @@ body {
         gradientMove 24s ease-in-out infinite;
 
     background-attachment: fixed;
-
     background-repeat: no-repeat;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
 
     color: #333;
 
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 
 /* =====================================================
-   BACKGROUND ANIMATION
+   MOVING BACKGROUND
 ===================================================== */
 
 @keyframes gradientMove {
@@ -146,7 +123,6 @@ body {
             50% 100%,
             0% 50%;
     }
-
 }
 
 
@@ -156,18 +132,14 @@ body {
 
 .game-wrapper {
     width: 100%;
-
-    max-width: 950px;
-
     min-height: 100vh;
+    min-height: 100svh;
 
     display: flex;
-
     justify-content: center;
-
     align-items: center;
 
-    padding: 20px;
+    padding: 70px 20px 30px;
 
     background: transparent;
 }
@@ -178,22 +150,25 @@ body {
 ===================================================== */
 
 .game-container {
+    width: 100%;
+
     display: flex;
 
-    align-items: center;
-
     justify-content: center;
+    align-items: center;
 
     gap: 25px;
 }
 
 
 /* =====================================================
-   TETRIS BOARD CONTAINER
+   BOARD
 ===================================================== */
 
 .board-container {
     position: relative;
+
+    flex-shrink: 0;
 
     background: #222;
 
@@ -208,14 +183,13 @@ body {
 
 
 /* =====================================================
-   MAIN CANVAS
+   TETRIS CANVAS
 ===================================================== */
 
 #gameCanvas {
     display: block;
 
     width: 300px;
-
     height: 600px;
 
     background: #111;
@@ -253,9 +227,6 @@ body {
     text-align: center;
 
     color: #444;
-
-    text-shadow:
-        0 2px 10px rgba(255, 255, 255, 0.6);
 }
 
 
@@ -265,19 +236,16 @@ body {
 
 
 /* =====================================================
-   GLASS INFORMATION CARDS
+   INFO CARDS
 ===================================================== */
 
 .info-card {
-    background:
-        rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.55);
 
     backdrop-filter: blur(14px);
-
     -webkit-backdrop-filter: blur(14px);
 
-    border:
-        1px solid rgba(255, 255, 255, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.65);
 
     border-radius: 18px;
 
@@ -289,10 +257,6 @@ body {
     text-align: center;
 }
 
-
-/* =====================================================
-   INFO TITLE
-===================================================== */
 
 .info-title {
     font-size: 12px;
@@ -307,10 +271,6 @@ body {
 }
 
 
-/* =====================================================
-   INFO VALUE
-===================================================== */
-
 .info-value {
     font-size: 25px;
 
@@ -321,7 +281,7 @@ body {
 
 
 /* =====================================================
-   NEXT PIECE
+   NEXT
 ===================================================== */
 
 .next-title {
@@ -341,20 +301,18 @@ body {
     display: block;
 
     width: 120px;
-
     height: 120px;
 
     margin: auto;
 
-    background:
-        rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.55);
 
     border-radius: 10px;
 }
 
 
 /* =====================================================
-   GENERAL BUTTON
+   BUTTONS
 ===================================================== */
 
 .button {
@@ -376,8 +334,7 @@ body {
 
     transition:
         transform 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease;
+        box-shadow 0.2s ease;
 }
 
 
@@ -395,68 +352,29 @@ body {
 
 
 /* =====================================================
-   PAUSE BUTTON
+   PAUSE
 ===================================================== */
 
 .pause-btn {
-    background:
-        rgba(243, 199, 107, 0.92);
+    background: rgba(243, 199, 107, 0.92);
 
     color: white;
-
-    box-shadow:
-        0 5px 15px rgba(243, 199, 107, 0.20);
-}
-
-
-.pause-btn:hover {
-    background:
-        rgba(235, 183, 85, 0.98);
 }
 
 
 /* =====================================================
-   RESTART BUTTON
+   RESTART
 ===================================================== */
 
 .restart-btn {
-    background:
-        rgba(217, 108, 155, 0.92);
+    background: rgba(217, 108, 155, 0.92);
 
     color: white;
-
-    box-shadow:
-        0 5px 15px rgba(217, 108, 155, 0.20);
-}
-
-
-.restart-btn:hover {
-    background:
-        rgba(207, 94, 143, 0.98);
 }
 
 
 /* =====================================================
-   BACK TO ARCADE
-===================================================== */
-
-.back-btn {
-    display: block !important;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.75);
-    color: #555;
-    border: 1px solid rgba(255, 255, 255, 0.8);
-}
-
-
-.back-btn:hover {
-    background:
-        rgba(255, 255, 255, 0.90);
-}
-
-
-/* =====================================================
-   START / PAUSE / GAME OVER OVERLAY
+   OVERLAY
 ===================================================== */
 
 .overlay {
@@ -465,11 +383,6 @@ body {
     inset: 8px;
 
     border-radius: 7px;
-
-    /*
-       Semi-transparent animated-looking
-       gradient overlay
-    */
 
     background:
         linear-gradient(
@@ -482,7 +395,6 @@ body {
     display: flex;
 
     justify-content: center;
-
     align-items: center;
 
     text-align: center;
@@ -490,7 +402,6 @@ body {
     z-index: 10;
 
     backdrop-filter: blur(8px);
-
     -webkit-backdrop-filter: blur(8px);
 }
 
@@ -513,17 +424,14 @@ body {
 
     border-radius: 22px;
 
-    background:
-        rgba(255, 255, 255, 0.40);
+    background: rgba(255, 255, 255, 0.40);
 
-    border:
-        1px solid rgba(255, 255, 255, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.65);
 
     box-shadow:
         0 12px 35px rgba(0, 0, 0, 0.10);
 
     backdrop-filter: blur(10px);
-
     -webkit-backdrop-filter: blur(10px);
 }
 
@@ -542,15 +450,8 @@ body {
     color: #d96c9b;
 
     margin-bottom: 5px;
-
-    text-shadow:
-        0 3px 10px rgba(217, 108, 155, 0.15);
 }
 
-
-/* =====================================================
-   OVERLAY SUBTITLE
-===================================================== */
 
 .overlay-subtitle {
     font-size: 14px;
@@ -562,7 +463,7 @@ body {
 
 
 /* =====================================================
-   OVERLAY BUTTON
+   OVERLAY BUTTONS
 ===================================================== */
 
 .overlay-button {
@@ -606,7 +507,7 @@ body {
 
 
 /* =====================================================
-   START / RESUME / PLAY AGAIN
+   START BUTTON
 ===================================================== */
 
 .start-button {
@@ -618,42 +519,19 @@ body {
         );
 
     color: white;
-
-    box-shadow:
-        0 7px 20px rgba(217, 108, 155, 0.25);
-}
-
-
-.start-button:hover {
-    background:
-        linear-gradient(
-            135deg,
-            #cf5f91,
-            #aa69ca
-        );
 }
 
 
 /* =====================================================
-   CANCEL / NO
+   CANCEL
 ===================================================== */
 
 .cancel-button {
-    background:
-        rgba(255, 255, 255, 0.72);
+    background: rgba(255, 255, 255, 0.72);
 
     color: #555;
 
     display: none;
-
-    border:
-        1px solid rgba(255, 255, 255, 0.75);
-}
-
-
-.cancel-button:hover {
-    background:
-        rgba(255, 255, 255, 0.95);
 }
 
 
@@ -686,8 +564,7 @@ body {
 
     border-radius: 12px;
 
-    background:
-        rgba(255, 255, 255, 0.72);
+    background: rgba(255, 255, 255, 0.72);
 
     font-size: 20px;
 
@@ -697,21 +574,71 @@ body {
 
     box-shadow:
         0 4px 10px rgba(0, 0, 0, 0.08);
-
-    transition:
-        transform 0.15s ease,
-        background 0.15s ease;
-}
-
-
-.control-btn:hover {
-    background:
-        rgba(255, 255, 255, 0.90);
 }
 
 
 .control-btn:active {
     transform: scale(0.93);
+}
+
+
+/* =====================================================
+   FIXED BACK TO ARCADE
+===================================================== */
+
+.back-arcade-fixed {
+    position: fixed;
+
+    top: 15px;
+    left: 15px;
+
+    z-index: 9999;
+
+    padding: 10px 16px;
+
+    border: 1px solid rgba(255, 255, 255, 0.8);
+
+    border-radius: 14px;
+
+    background: rgba(255, 255, 255, 0.70);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    color: #555;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.10);
+}
+
+
+.back-arcade-fixed:active {
+    transform: scale(0.96);
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 900px) and (min-width: 701px) {
+
+    .game-container {
+        gap: 15px;
+    }
+
+    .side-panel {
+        width: 190px;
+    }
+
 }
 
 
@@ -722,160 +649,335 @@ body {
 @media (max-width: 700px) {
 
     body {
+        overflow-x: hidden;
         overflow-y: auto;
 
-        align-items: flex-start;
+        display: block;
     }
 
+
+    /* ---------------------------------------------
+       PAGE
+    --------------------------------------------- */
 
     .game-wrapper {
-        padding: 12px;
+        width: 100%;
 
-        min-height: 100vh;
+        min-height: auto;
+
+        padding:
+            65px
+            12px
+            30px;
+
+        display: block;
     }
 
+
+    /* ---------------------------------------------
+       GAME
+    --------------------------------------------- */
 
     .game-container {
+        width: 100%;
+
+        display: flex;
+
         flex-direction: column;
 
-        gap: 12px;
+        align-items: center;
+
+        gap: 18px;
     }
 
 
+    /* ---------------------------------------------
+       BOARD SIZE
+       
+       This is the important fix.
+       
+       The board now shrinks based on the
+       phone's available screen height.
+    --------------------------------------------- */
+
+    .board-container {
+        width: auto;
+
+        padding: 6px;
+
+        border-radius: 12px;
+
+        /*
+           Never allow the board to become
+           taller than the phone screen.
+        */
+
+        max-height:
+            calc(100svh - 120px);
+
+        max-width:
+            calc(100vw - 24px);
+    }
+
+
+    #gameCanvas {
+
+        /*
+           Original canvas is 300 × 600.
+
+           On mobile we calculate its height
+           first, then keep the 1:2 ratio.
+        */
+
+        height:
+            min(
+                560px,
+                calc(100svh - 140px)
+            );
+
+        width: auto;
+
+        aspect-ratio: 1 / 2;
+
+        max-width:
+            calc(100vw - 24px);
+
+        border-radius: 6px;
+    }
+
+
+    /* ---------------------------------------------
+       SIDE PANEL
+    --------------------------------------------- */
+
     .side-panel {
+
         width: min(100%, 360px);
 
         display: grid;
 
         grid-template-columns: 1fr 1fr;
 
-        gap: 8px;
+        gap: 10px;
+
+        align-items: stretch;
     }
 
+
+    /* ---------------------------------------------
+       LOGO
+    --------------------------------------------- */
 
     .logo {
-        grid-column: 1 / -1;
+
+        grid-column:
+            1 / -1;
 
         font-size: 30px;
+
+        margin-bottom: 2px;
     }
 
+
+    /* ---------------------------------------------
+       CARDS
+    --------------------------------------------- */
+
+    .info-card {
+
+        padding: 14px;
+
+        min-height: 105px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        justify-content: center;
+    }
+
+
+    .info-title {
+        font-size: 11px;
+    }
+
+
+    .info-value {
+        font-size: 28px;
+    }
+
+
+    /* ---------------------------------------------
+       HIDE NEXT ON MOBILE
+    --------------------------------------------- */
 
     .next-card {
         display: none;
     }
 
 
+    /* ---------------------------------------------
+       PAUSE
+    --------------------------------------------- */
+
+    .pause-btn {
+        width: 100%;
+    }
+
+
+    /* ---------------------------------------------
+       RESTART
+    --------------------------------------------- */
+
+    .restart-btn {
+        width: 100%;
+    }
+
+
+    /* ---------------------------------------------
+       MOBILE CONTROLS
+    --------------------------------------------- */
+
     .mobile-controls {
+
         display: block;
 
-        grid-column: 1 / -1;
+        grid-column:
+            1 / -1;
+
+        width: 100%;
+
+        margin-top: 5px;
+
+        padding-bottom: 10px;
     }
 
 
-    .back-btn {
-        grid-column: 1 / -1;
+    .mobile-row {
+
+        gap: 10px;
+
+        margin-top: 10px;
     }
+
+
+    .control-btn {
+
+        width: 58px;
+
+        height: 48px;
+
+        font-size: 22px;
+
+        border-radius: 14px;
+    }
+
+
+    /* ---------------------------------------------
+       BACK BUTTON
+    --------------------------------------------- */
+
+    .back-arcade-fixed {
+
+        top: 10px;
+
+        left: 10px;
+
+        padding:
+            9px 13px;
+
+        font-size: 12px;
+    }
+
+
+    /* ---------------------------------------------
+       OVERLAY
+    --------------------------------------------- */
+
+    .overlay {
+
+        inset: 6px;
+
+        border-radius: 6px;
+    }
+
+
+    .overlay-box {
+
+        width: 84%;
+
+        padding: 20px;
+
+        border-radius: 20px;
+    }
+
+
+    .overlay-title {
+
+        font-size: 42px;
+    }
+
+
+    .overlay-subtitle {
+
+        font-size: 13px;
+
+        margin-bottom: 20px;
+    }
+
+
+    .overlay-button {
+
+        padding: 12px;
+    }
+
 }
 
 
 /* =====================================================
-   SMALL MOBILE SCREENS
+   VERY SMALL PHONES
 ===================================================== */
 
 @media (max-width: 380px) {
 
-    #gameCanvas {
-        width: 270px;
+    .game-wrapper {
 
-        height: 540px;
+        padding-left: 8px;
+        padding-right: 8px;
     }
 
 
     .board-container {
-        padding: 6px;
+
+        max-width:
+            calc(100vw - 16px);
+    }
+
+
+    #gameCanvas {
+
+        height:
+            min(
+                500px,
+                calc(100svh - 150px)
+            );
+
+        max-width:
+            calc(100vw - 16px);
     }
 
 
     .side-panel {
+
         width: 100%;
     }
 
-}
 
-/* =====================================================
-   FIXED BACK TO ARCADE BUTTON
-===================================================== */
+    .control-btn {
 
-.back-arcade-fixed {
-    position: fixed;
+        width: 52px;
 
-    top: 20px;
-    left: 20px;
-
-    z-index: 9999;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 11px 18px;
-
-    border: 1px solid rgba(255, 255, 255, 0.75);
-
-    border-radius: 14px;
-
-    background: rgba(255, 255, 255, 0.65);
-
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-
-    color: #555;
-
-    font-family: 'Poppins', sans-serif;
-
-    font-size: 14px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.10);
-
-    transition:
-        transform 0.2s ease,
-        background 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-
-.back-arcade-fixed:hover {
-    transform: translateY(-2px);
-
-    background: rgba(255, 255, 255, 0.9);
-
-    box-shadow:
-        0 10px 28px rgba(0, 0, 0, 0.14);
-}
-
-
-.back-arcade-fixed:active {
-    transform: scale(0.96);
-}
-
-
-/* =====================================================
-   MOBILE BACK BUTTON
-===================================================== */
-
-@media (max-width: 700px) {
-
-    .back-arcade-fixed {
-        top: 10px;
-        left: 10px;
-
-        padding: 9px 13px;
-
-        font-size: 12px;
+        height: 44px;
     }
 
 }
