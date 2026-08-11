@@ -860,7 +860,7 @@ TABLET
 
 @media (max-width: 900px)
 and (min-width: 701px) {
-
+    
 .game-container {
 
     gap: 15px;
@@ -920,6 +920,8 @@ body {
 =============================================== */
 
 .game-wrapper {
+
+    transform: translateY(-80px);
 
     position: fixed;
 
@@ -1141,11 +1143,7 @@ body {
    HIDE NEXT
 =============================================== */
 
-.next-card {
 
-    display: none;
-
-}
 
 
 /* ===============================================
@@ -1190,7 +1188,7 @@ body {
 
     bottom:
         calc(
-            5px +
+           100px +
             env(safe-area-inset-bottom)
         );
 
@@ -1465,16 +1463,6 @@ SHORT PHONES
 @media (max-width: 700px)
 and (max-height: 650px) {
 
-.game-wrapper {
-
-    padding-top:
-        calc(
-            45px +
-            env(safe-area-inset-top)
-        );
-
-}
-
 
 .board-container {
 
@@ -1520,4 +1508,6 @@ and (max-height: 650px) {
 
 }
 
-}
+/* =====================================================
+   MOBILE: MOVE GAME AREA UP
+===================================================== */
